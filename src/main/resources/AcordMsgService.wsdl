@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AcordMsgSvc" targetNamespace="http://www.ACORD.org/Standards/AcordMsgSvc/1.4.0" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ac="http://www.ACORD.org/Standards/AcordMsgSvc/1.4.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/">
+  <types>
+    <xs:schema targetNamespace="http://www.ACORD.org/Standards/AcordMsgSvc/1.4.0">
+			<!--Inbox port messages-->
+                    <xs:element name="PostRq">
+                    <xs:complexType>
+                    <xs:sequence>
+                    <xs:element name="param" type="xs:string"/>
+                    </xs:sequence>
+                    </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PostRs">
+                    <xs:complexType>
+                    <xs:sequence>
+                    <xs:element name="param" type="xs:string"/>
+                    </xs:sequence>
+                    </xs:complexType>
+                    </xs:element> 
+   			<!-- <xs:element name="PostRq" type="xs:anyType"/>
+			<xs:element name="PostRs" type="xs:anyType"/> -->
+		</xs:schema>
+  </types>
+  <message name="PostRequest">
+    <part name="PostRqPart" element="ac:PostRq">
+    </part>
+  </message>
+  <message name="PostResponse">
+    <part name="PostRsPart" element="ac:PostRs">
+    </part>
+  </message>
+  <portType name="AcordMsgSvcInbox">
+    <operation name="PostRq">
+      <input name="PostRq" message="ac:PostRequest">
+    </input>
+      <output name="PostRs" message="ac:PostResponse">
+    </output>
+    </operation>
+  </portType>
+  <binding name="AcordMsgSvcInboxBinding" type="ac:AcordMsgSvcInbox">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="PostRq">
+      <wsdlsoap:operation soapAction="http://www.ACORD.org/Standards/AcordMsgSvc/Inbox#PostRq" style="document"/>
+      <input name="PostRq">
+        <wsdlsoap:body use="literal" namespace="http://www.ACORD.org/Standards/AcordMsgSvc/1.4.0"/>
+      </input>
+      <output name="PostRs">
+        <wsdlsoap:body use="literal" namespace="http://www.ACORD.org/Standards/AcordMsgSvc/1.4.0"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="AcordMsgService">
+    <port name="AcordMsgSvcInbox" binding="ac:AcordMsgSvcInboxBinding">
+<!--  <wsdlsoap:address location="http://test.risktx.org/AcordMsgSvc/Inbox"/>  -->
+		<wsdlsoap:address location="http://localhost:8282/risktx/services/AcordMsgService"/>
+    </port>
+  </service>
+</definitions>

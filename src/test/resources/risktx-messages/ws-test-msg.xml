@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RiskTxMessage>
+  <!-- URL to send message to -->
+  <EndpointReference>http://localhost:8282/risktx-acord-ws/services/AcordMsgService</EndpointReference>
+
+  <!-- Acord DRI message -->
+  <AcordMessageUrl>file:///C:/dev/java/risktx/src/test/resources/dri-messages/sample-dri-1.xml</AcordMessageUrl>
+
+  <!-- List of attachments to send -->
+  <Attachments>
+    <AttachmentUrl>file:///C:/dev/java/risktx/src/test/resources/dri-attachments/sample-attachment-1.doc</AttachmentUrl>
+  </Attachments>
+</RiskTxMessage>

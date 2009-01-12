@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+  xmlns:spring="http://www.springframework.org/schema/beans"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:file="http://www.mulesource.org/schema/mule/file/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
+  xmlns:script="http://www.mulesource.org/schema/mule/scripting/2.0"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+    http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+    http://www.mulesource.org/schema/mule/file/2.0 http://www.mulesource.org/schema/mule/file/2.0/mule-file.xsd
+    http://www.mulesource.org/schema/mule/scripting/2.0 http://www.mulesource.org/schema/mule/scripting/2.0/mule-scripting.xsd
+    http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd">
+
+<!-- 
+   <spring:beans>
+       <spring:import resource="classpath:applicationContext.xml"/>
+   </spring:beans>
+ -->
+ 
+  <file:connector name="risktx.send.file" streaming="true" fileAge="1000" pollingFrequency="1000" autoDelete="true"/>
+
+  <script:script name="risktx.receive.script" engine="groovy" file="receive.groovy"/>
+  <script:script name="risktx.send.script" engine="groovy" file="send.groovy"/>
+
+  <model name="risktx">
+    <!-- receive message service -->
+    <service name="risktx.receive">
+      <inbound>
+        <!-- messages are received via the vm transport from the axis2 service -->
+        <vm:inbound-endpoint path="risktx.receive.vm" />
+      </inbound>
+      <!-- all handled in a custom script, will use more Mule functionality over time .... -->
+      <script:component script-ref="risktx.receive.script"/>
+    </service>
+
+    <!-- send message service -->
+    <service name="risktx.send">
+      <!-- messages are sent out following an event from the file transport which polls the send directory -->
+      <inbound>
+		  <file:inbound-endpoint path="${risktx.send.directory.poll}" moveToDirectory="${risktx.send.directory.processed}" moveToPattern="${SYSTIME}.${ORIGINALNAME}" connector-ref="risktx.send.file"/>
+      </inbound>
+      <!-- all handled in a custom script, will use more Mule functionality over time .... -->
+       <script:component script-ref="risktx.send.script"/>
+    </service>
+  </model>
+</mule>
