@@ -1,5 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<!--  NOTE run mvn site with  MAVEN_OPTS -Xms32m -Xmx256m -->	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.risktx</groupId>
 	<artifactId>risktx-acord-ws</artifactId>
@@ -29,6 +30,18 @@
                         </classpathContainer>
                     </classpathContainers>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
             </plugin>
         </plugins>
     </reporting>
@@ -140,6 +153,15 @@
             <artifactId>mockobjects-core</artifactId>
             <version>0.09</version>
             <scope>test</scope>
+        </dependency>
+        <!--  icu4j dependency added to prevent mvn site error due to a byte code
+        	  issue in version 2.6.1 caused by an Axis2-Jaxen-XOM dependency
+        	  This dependancy will push up the ic4u version resolving the issue -->
+        <dependency>
+        	<groupId>com.ibm.icu</groupId>
+        	<artifactId>icu4j</artifactId>
+        	<version>3.8</version>
+        	<scope>test</scope>
         </dependency>
 	</dependencies>
 	<dependencyManagement>
