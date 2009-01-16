@@ -7,7 +7,6 @@ import org.apache.axiom.soap.SOAPEnvelope;
 import org.apache.axis2.context.MessageContext;
 import org.mule.api.MuleException;
 import org.mule.module.client.MuleClient;
-import org.risktx.webservices.axis.Message;
 
 public class Inbox {
 
