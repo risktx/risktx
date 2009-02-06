@@ -5,12 +5,16 @@
     <description>risktx</description>
 
     <context-param>
-        <param-name>org.mule.config</param-name>
-        <param-value>risktx-mule-config.xml</param-value>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/risktx-application-context.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.apache.xbean.spring.context.XmlWebApplicationContext</param-value>
     </context-param>
 
     <listener>
-        <listener-class>org.mule.config.builders.MuleXmlBuilderContextListener</listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
     <servlet>
