@@ -2,10 +2,10 @@
 	<!--  NOTE run mvn site with  MAVEN_OPTS -Xms32m -Xmx256m -->
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.risktx</groupId>
-	<artifactId>risktx-acord-ws</artifactId>
+	<artifactId>risktx</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>RiskTx Maven Webapp</name>
+	<name>RiskTx</name>
 	<description/>
 	<url>http://risktx.org</url>
 	<prerequisites>
@@ -13,7 +13,7 @@
 	</prerequisites>
 	<issueManagement>
 		<system>Lighthouse</system>
-		<url>http://risktx.lighthouseapp.com/projects/23596-risktx/overview</url>
+		<url>http://risktx.lighthouseapp.com/projects/25011-risktx/overview</url>
 	</issueManagement>
 	<ciManagement>
 		<system/>
@@ -165,54 +165,9 @@
 			<version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mule</groupId>
-			<artifactId>mule-core</artifactId>
-			<version>${mule-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-builders</artifactId>
-			<version>${mule-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-client</artifactId>
-			<version>${mule-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-scripting</artifactId>
-			<version>${mule-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-spring-config</artifactId>
-			<version>${mule-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-xml</artifactId>
-			<version>${mule-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-file</artifactId>
-			<version>${mule-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-http</artifactId>
-			<version>${mule-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-jms</artifactId>
-			<version>${mule-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-vm</artifactId>
-			<version>${mule-version}</version>
+			<groupId>org.apache.xbean</groupId>
+			<artifactId>xbean-spring</artifactId>
+			<version>3.4.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -230,15 +185,24 @@
 			<version>${spring-version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>${commons-logging-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mule.tests</groupId>
-			<artifactId>mule-tests-functional</artifactId>
-			<version>${mule-version}</version>
-			<scope>test</scope>
+			<groupId>org.apache.servicemix</groupId>
+			<artifactId>servicemix-core</artifactId>
+			<version>3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.servicemix</groupId>
+			<artifactId>servicemix-components</artifactId>
+			<version>3.3</version>
 		</dependency>
 		<dependency>
 			<groupId>mockobjects</groupId>
@@ -276,18 +240,4 @@
 		<jdk5Name>jdk5</jdk5Name>
 		<jdk.version>1.5</jdk.version>
 	</properties>
-	<repositories>
-		<repository>
-			<id>muleforge-repo</id>
-			<name>MuleForge Repository</name>
-			<url>http://repository.muleforge.org</url>
-			<layout>default</layout>
-		</repository>
-		<repository>
-			<id>codehaus-repo</id>
-			<name>Codehaus Repository</name>
-			<url>http://dist.codehaus.org/mule/dependencies/maven2</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
 </project>
