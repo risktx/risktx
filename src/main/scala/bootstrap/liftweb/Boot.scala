@@ -71,10 +71,10 @@ object DBVendor extends ConnectionManager {
 
   private def createOne: Box[Connection] = try {
     val driverName: String = Props.get("db.driver") openOr
-    "org.apache.derby.jdbc.EmbeddedDriver"
+    "org.h2.Driver"
 
     val dbUrl: String = Props.get("db.url") openOr
-    "jdbc:derby:risktx_db;create=true"
+    "jdbc:h2:mem:DATABASE;DB_CLOSE_DELAY=-1"
 
     Class.forName(driverName)
 
