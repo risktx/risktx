@@ -25,8 +25,6 @@ class PingMessageSnippet extends StatefulSnippet {
     case "send" => send _
   }
   
-  //def gif (m != null) m.responseContent else ""
-  
   def send(xhtml: NodeSeq): NodeSeq = {  
     def doSend () = {
       //create a Message, set some values, currently ignore the attachments...
