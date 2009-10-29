@@ -23,12 +23,22 @@ import org.apache.axis2.context.ConfigurationContextFactory
 import org.apache.axis2.context.MessageContext
 import org.apache.axis2.wsdl.WSDLConstants
 
+/**
+* Acord Message Sender
+**/
 class Sender {
-
 }
 
+/**
+* Implementation of the Acord Message Sender
+**/
 object Sender {
-
+  // TODO: Check these comments
+  /**
+  * Handles the sending of a message
+  *
+  * @param  message The request we have received or a blank message
+  **/
   def send(m: Message): Unit = {
 
     // generate the request
@@ -45,7 +55,8 @@ object Sender {
     options.setTimeOutInMilliSeconds(10000)
     options.setTo(targetEPR)
     options.setAction("http://www.ACORD.org/Standards/AcordMsgSvc/Ping#PingRq")
-    
+
+    // Log the target endpoint
     Log.info("sending to: " + m.url)
         
     // get the Axis context for sending the message
@@ -55,8 +66,8 @@ object Sender {
     Log.info("creating sender client")
     val sender = new ServiceClient(configContext, null)
     sender.setOptions(options)
-    val mepClient = sender.createClient(ServiceClient.ANON_OUT_IN_OP)
 
+    val mepClient = sender.createClient(ServiceClient.ANON_OUT_IN_OP)
     val mc = new MessageContext()
 
     val fac = OMAbstractFactory.getSOAP11Factory()
@@ -71,7 +82,8 @@ object Sender {
     Log.info("sending message")
     mepClient.execute(true)
     val response = mepClient.getMessageContext(WSDLConstants.MESSAGE_LABEL_IN_VALUE)
-    
+
+    // Set response content
     m.responseContent(response.getEnvelope().toString())
   }
 }

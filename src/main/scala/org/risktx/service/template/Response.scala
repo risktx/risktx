@@ -5,22 +5,34 @@ import java.util.UUID._
 import java.util.GregorianCalendar
 import javax.xml.datatype.DatatypeFactory
 
+/**
+* Acord Ping Response Message
+**/
 class Response {
 
 }
 
+/**
+* Acord Ping Response Message
+**/
 object Response {
 
+  /**
+  * Creates the ping response
+  * @param message  The request Message
+  **/
   def createPingRs(message: Message): Unit = {
-
+    // Create Message ID for the response
     message.responseId(randomUUID().toString())
   
-    // format the date
+    // Create and format the date
     val cal = new GregorianCalendar()
     cal.setTime(message.dateOf)
+
+    // Create timestamp for our message
     val xmlDateOf = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal).toString()
 
-    // generate the response    
+    // generate the response, reverse sender/receiver from request
     val pingRs = 
         <ac:PingRs xmlns="http://www.ACORD.org/Standards/AcordMsgSvc/Ping" xmlns:ac="http://www.ACORD.org/Standards/AcordMsgSvc/1.4.0">
         <ac:Sender>
@@ -42,6 +54,5 @@ object Response {
     
     // set the response
     message.responseContent(pingRs.toString())
-    
   }
 }
