@@ -12,16 +12,28 @@ import org.risktx.service.Receiver
 
 import java.util.Date
 
+/**
+* Encapsulates an Acord messgage
+**/
 class AcordMsgSvc {
 
+  /**
+  * Handle Ping requests
+  **/
   def PingRq():OMElement = {
     AsyncRq()
   }
-  
+
+  /**
+  * Handle Post requests
+  **/
   def PostRq():OMElement = {
     AsyncRq()
   }  
-  
+
+  /**
+  * Converts request SOAP object into a RiskTX Object
+  **/
   def AsyncRq():OMElement = {
       
     //get the context and SOAP envelope (contains the inbound AMS message)
@@ -36,6 +48,5 @@ class AcordMsgSvc {
     
     //create the SOAP response from the processed Message (build an Axiom object graph)
     stringToOM(m.responseContent)
-
   }
 }
