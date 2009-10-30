@@ -43,6 +43,8 @@ class Message extends LongKeyedMapper[Message] with IdPK {
   object direction extends MappedString(this, 3)
   
   object status extends MappedInt(this)
+
+  object operation extends MappedString(this, 6)  
   
   object statusDescription extends MappedText(this)
   
@@ -53,7 +55,7 @@ class Message extends LongKeyedMapper[Message] with IdPK {
   private var cachedResponseXml : Elem = null
 }
 
-object Message extends Message with LongKeyedMetaMapper[Message] {
+object Message extends Message with LongKeyedMetaMapper[Message] with CRUDify[Long, Message] {
   def findByTradingProfile (tradingProfile : TradingProfile) : List[Message] = 
     Message.findAll(By(Message.tradingProfile, tradingProfile.id.is))
 }
