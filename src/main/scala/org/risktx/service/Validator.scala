@@ -7,10 +7,6 @@ import net.liftweb.util.Log
 
 import org.risktx.model.Message
 
-class Validator {
-
-}
-
 object Validator {
   
   def validate(message: Message): Unit = {

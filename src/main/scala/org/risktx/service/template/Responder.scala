@@ -5,13 +5,10 @@ import java.util.UUID._
 import java.util.GregorianCalendar
 import javax.xml.datatype.DatatypeFactory
 
-class Response {
+object Responder {
 
-}
-
-object Response {
-
-  def createPingRs(message: Message): Unit = {
+  // defaults to PingRs
+  def createRs(message: Message): Unit = {
 
     message.responseId(randomUUID().toString())
   

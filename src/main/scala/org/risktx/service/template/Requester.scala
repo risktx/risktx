@@ -5,14 +5,9 @@ import java.util.UUID._
 import java.util.GregorianCalendar
 import javax.xml.datatype.DatatypeFactory
 
+object Requester {
 
-class Request {
-
-}
-
-object Request {
-
-  def createPingRq(message: Message): Unit = {
+  def createRq(message: Message): Unit = {
 
     message.requestId(randomUUID().toString())
   
