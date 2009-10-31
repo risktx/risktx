@@ -31,7 +31,9 @@ class Boot {
     Schemifier.schemify(true, Log.infoF _, User, TradingProfile, Message, Attachment)
 
     // build SiteMap
-    val entries = Menu(Loc("Home", List("index"), "Home")) :: Menu(Loc("PingMessage", List("pingmessage"), "Send Ping Request")) :: User.sitemap ::: Message.menus
+    val entries = Menu(Loc("Home", List("index"), "Home")) :: 
+        Menu(Loc("PingMessage", List("pingmessage"), "Send Ping Request")) ::
+        User.sitemap ::: Message.menus
     
     LiftRules.setSiteMap(SiteMap(entries:_*))
 
@@ -116,6 +118,10 @@ object DBVendor extends ConnectionManager {
       }
     }
 
+  /**
+  * Releases Database connection
+  * @param Connection conn Connection to be release
+  */
   def releaseConnection(conn: Connection): Unit = synchronized {
     pool = conn :: pool
     notify

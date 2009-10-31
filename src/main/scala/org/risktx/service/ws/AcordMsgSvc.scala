@@ -16,17 +16,30 @@ import javax.activation.DataHandler
 import java.util.Date
 import java.io.ByteArrayOutputStream
 
+/**
+* Encapsulates an Acord messgage
+**/
 class AcordMsgSvc {
 
+  /**
+  * Handle Ping requests
+  **/
   def PingRq():OMElement = {
     asyncRq("PingRq")
   }
-  
+
+  /**
+  * Handle Post requests
+  **/
   def PostRq():OMElement = {
     asyncRq("PostRq")
   }  
-  
+
+  /**
+  * Converts request SOAP object into a RiskTX Object
+  **/
   def asyncRq(operation: String):OMElement = {
+      
     //get the context and SOAP envelope (contains the inbound AMS message)
     val context = MessageContext.getCurrentMessageContext()
     val requestContent = context.getEnvelope().getFirstElement().getFirstElement()
@@ -59,5 +72,6 @@ class AcordMsgSvc {
       Log.info("saved attachment with id: " + attachment.id + " & contentType: " + attachment.content.size)
     }
     
+    stringToOM(message.responseContent)
   }
 }

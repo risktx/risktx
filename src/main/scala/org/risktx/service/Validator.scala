@@ -7,8 +7,14 @@ import net.liftweb.util.Log
 
 import org.risktx.model.Message
 
+/**
+* Implementation of message validator
+**/
 object Validator {
-  
+  /**
+  * Validates messages
+  * @param  message The request message we have received
+  **/
   def validate(message: Message): Unit = {
 
     // validate the Message
@@ -16,9 +22,7 @@ object Validator {
     message.senderParty((message.requestXml \ "Sender" \ "PartyId").text)
     message.senderPartyRole((message.requestXml \ "Sender" \ "PartyRoleCd").text)
     message.receiverParty((message.requestXml \ "Receiver" \ "PartyId").text)
-    message.receiverPartyRole((message.requestXml \ "Receiver" \ "PartyRoleCd").text)
-    
+    message.receiverPartyRole((message.requestXml \ "Receiver" \ "PartyRoleCd").text) 
   }
-
 }
 

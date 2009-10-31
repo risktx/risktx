@@ -12,7 +12,7 @@ object User extends User with MetaMegaProtoUser[User] {
 			       <lift:bind /></lift:surround>)
   // define the order fields will appear in forms and output
   override def fieldOrder = List(id, firstName, lastName, email,
-  locale, timezone, password)
+                                      locale, timezone, password)
 
   // comment this line out to require email validations
   override def skipEmailValidation = true
