@@ -8,12 +8,6 @@ import net.liftweb.util.Log
 import org.risktx.model.Message
 
 /**
-* Validates messages
-**/
-class Validator {
-}
-
-/**
 * Implementation of message validator
 **/
 object Validator {

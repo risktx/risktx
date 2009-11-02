@@ -29,7 +29,7 @@ class TradingProfile extends LongKeyedMapper[TradingProfile] with IdPK {
 }
 
 /**
-* Implementation of the TradingProfile with helper methods
+* TradingProfile companion object with Helper methods
 **/
 object TradingProfile extends TradingProfile with LongKeyedMetaMapper[TradingProfile] {
 

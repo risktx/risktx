@@ -1,15 +1,10 @@
 package org.risktx.service
 
 import net.liftweb._
+import net.liftweb.util.Log
 
 import org.risktx.model.Message
-import org.risktx.template.Response
-
-/**
-* Acord Message Receiver
-**/
-class Receiver {
-}
+import org.risktx.template.Responder
 
 /**
 * Implementation of Acord Message Receiver
@@ -21,12 +16,12 @@ object Receiver {
   * @param  message The request message we have received
   **/
   def receive(message: Message): Unit = {
-
+    
     // validate the Message
     Validator.validate(message)
         
     // generate the Message response
-    Response.createPingRs(message)
+    Responder.createRs(message)
     
     // save the Message
     message.save

@@ -4,7 +4,7 @@ import net.liftweb._
 import net.liftweb.util.Log
 
 import org.risktx.model.Message
-import org.risktx.template.Request
+import org.risktx.template.Requester
 
 import org.apache.axiom.om.impl.builder.StAXOMBuilder
 import org.apache.axiom.om.impl.llom.util.AXIOMUtil
@@ -24,12 +24,6 @@ import org.apache.axis2.context.MessageContext
 import org.apache.axis2.wsdl.WSDLConstants
 
 /**
-* Acord Message Sender
-**/
-class Sender {
-}
-
-/**
 * Implementation of the Acord Message Sender
 **/
 object Sender {
@@ -42,12 +36,14 @@ object Sender {
   def send(m: Message): Unit = {
 
     // generate the request
-    Request.createPingRq(m)
+    Requester.createRq(m)
     
+    // Client.getEndpoint
     // set the endpoint URL for the recipient system
     Log.info("setting endpoint as " + m.url)
     val targetEPR = new EndpointReference(m.url)
 
+    // Client.getAxisOptions
     // create the Axis client options
     val options  = new Options()
     options.setProperty(Constants.Configuration.ENABLE_SWA, Constants.VALUE_TRUE)
@@ -58,19 +54,24 @@ object Sender {
 
     // Log the target endpoint
     Log.info("sending to: " + m.url)
-        
+    
+    // Client.getAxisConfigurationContext    
     // get the Axis context for sending the message
     val configContext = ConfigurationContextFactory.createDefaultConfigurationContext()
         
+    // Client.getAxisClient(m: Message)    
     //create the sender client
     Log.info("creating sender client")
     val sender = new ServiceClient(configContext, null)
     sender.setOptions(options)
 
+    // Client.getMessageContext(m: Message)
     val mepClient = sender.createClient(ServiceClient.ANON_OUT_IN_OP)
     val mc = new MessageContext()
 
     val fac = OMAbstractFactory.getSOAP11Factory()
+       
+    // Client.getMessageEnvelope(m: Message)
     val env = fac.getDefaultEnvelope()
 
     val postRqElement = AXIOMUtil.stringToOM(m.requestContent)
@@ -84,6 +85,6 @@ object Sender {
     val response = mepClient.getMessageContext(WSDLConstants.MESSAGE_LABEL_IN_VALUE)
 
     // Set response content
-    m.responseContent(response.getEnvelope().toString())
+    m.responseContent(response.getEnvelope().getFirstElement().getFirstElement().toString())
   }
 }

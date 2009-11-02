@@ -8,20 +8,14 @@ import javax.xml.datatype.DatatypeFactory
 /**
 * Acord Ping Request message
 **/
-class Request {
-}
-
-/**
-* Acord Ping Request message
-**/
-object Request {
+object Requester {
 
   // TODO: Check the scaladoc entry here!
   /**
   * Create an Acord Ping request
   * @param message ??Blank Message
   **/
-  def createPingRq(message: Message): Unit = {
+  def createRq(message: Message): Unit = {
     // Set the message ID
     message.requestId(randomUUID().toString())
   

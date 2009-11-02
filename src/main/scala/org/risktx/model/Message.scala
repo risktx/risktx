@@ -4,7 +4,7 @@ import net.liftweb.mapper._
 import scala.xml._
 
 /**
-* Message Class which encapsulates a SOAP message
+* Message entity which encapsulates a RiskTx message exchange
 **/
 class Message extends LongKeyedMapper[Message] with IdPK {
   def getSingleton = Message
@@ -87,6 +87,8 @@ class Message extends LongKeyedMapper[Message] with IdPK {
   **/
   object status extends MappedInt(this)
 
+  object operation extends MappedString(this, 6)  
+  
   /**
   * Description of the message status
   **/
@@ -106,9 +108,9 @@ class Message extends LongKeyedMapper[Message] with IdPK {
 }
 
 /**
-  * Implementation of Message with Helper methods
-  **/
-object Message extends Message with LongKeyedMetaMapper[Message] {
+* Message companion object with Helper methods
+**/
+object Message extends Message with LongKeyedMetaMapper[Message] with CRUDify[Long, Message] {
   /**
   * Helper method to find messages for a particular Trading Party
   *

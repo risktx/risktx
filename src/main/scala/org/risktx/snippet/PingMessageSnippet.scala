@@ -52,8 +52,6 @@ class PingMessageSnippet extends StatefulSnippet {
     case "send" => send _
   }
   
-  //def gif (m != null) m.responseContent else ""
-
   /**
   * Sends the message
   **/
@@ -73,11 +71,11 @@ class PingMessageSnippet extends StatefulSnippet {
 
     // Bind to the Lift UI
     bind("pingMessage", xhtml,
-      "url" -> SHtml.text(url, url = _),
-      "senderParty" -> SHtml.text(senderParty, senderParty = _),
-      "receiverParty" -> SHtml.text(receiverParty, receiverParty = _),
-      "senderPartyRole" -> SHtml.text(senderPartyRole, senderPartyRole = _),
-      "receiverPartyRole" -> SHtml.text(receiverPartyRole, receiverPartyRole = _),    
+      "url" -> SHtml.text(url, url = _, "class" -> "text"),
+      "senderParty" -> SHtml.text(senderParty, senderParty = _, "class" -> "text"),
+      "receiverParty" -> SHtml.text(receiverParty, receiverParty = _, "class" -> "text"),
+      "senderPartyRole" -> SHtml.text(senderPartyRole, senderPartyRole = _, "class" -> "text"),
+      "receiverPartyRole" -> SHtml.text(receiverPartyRole, receiverPartyRole = _, "class" -> "text"),    
       "submit" -> SHtml.submit("Send Message", () => doSend()),
       "requestContent" -> m.requestContent.asHtml,
       "responseContent" -> m.responseContent.asHtml

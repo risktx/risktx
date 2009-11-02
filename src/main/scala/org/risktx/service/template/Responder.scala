@@ -8,20 +8,13 @@ import javax.xml.datatype.DatatypeFactory
 /**
 * Acord Ping Response Message
 **/
-class Response {
-
-}
-
-/**
-* Acord Ping Response Message
-**/
-object Response {
+object Responder {
 
   /**
-  * Creates the ping response
+  * Creates the ping response - defaults to PingRs
   * @param message  The request Message
   **/
-  def createPingRs(message: Message): Unit = {
+  def createRs(message: Message): Unit = {
     // Create Message ID for the response
     message.responseId(randomUUID().toString())
   

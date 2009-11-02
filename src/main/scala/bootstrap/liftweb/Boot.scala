@@ -28,12 +28,12 @@ class Boot {
     LiftRules.addToPackages("org.risktx")
     
     // create or update database entities in alignment with model classes
-    Schemifier.schemify(true, Log.infoF _, User, TradingProfile, Message)
+    Schemifier.schemify(true, Log.infoF _, User, TradingProfile, Message, Attachment)
 
     // build SiteMap
     val entries = Menu(Loc("Home", List("index"), "Home")) :: 
         Menu(Loc("PingMessage", List("pingmessage"), "Send Ping Request")) ::
-        User.sitemap
+        User.sitemap ::: Message.menus
     
     LiftRules.setSiteMap(SiteMap(entries:_*))
 
