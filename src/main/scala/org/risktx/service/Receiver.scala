@@ -1,29 +1,37 @@
 package org.risktx.service
 
-import net.liftweb._
-import net.liftweb.util.Log
-
-import org.risktx.model.Message
 import org.risktx.template.Responder
+import org.risktx.model.Message
 
 /**
-* Implementation of Acord Message Receiver
+ * Implementation of Acord Message Receiver.
 **/
 object Receiver {
 
   /**
-  * Handles the receiving of a message
+  * Receives message by validating, generating a response, then persisting
+  * the message and attachments.
+  * @param message The request message received
+  * @param attachments A List of Attachments for the message
+  **/
+  def receive(message: Message) {
+    // validate message and set response
+    message.responseContent(processRequest(message))
+    // persist message
+    message.save
+  }
+
+  /**
+  *
   * @param  message The request message we have received
   **/
-  def receive(message: Message): Unit = {
-    
-    // validate the Message
-    Validator.validate(message)
-        
-    // generate the Message response
-    Responder.createRs(message)
-    
-    // save the Message
-    message.save
+  private def processRequest(message: Message): String = {
+    // validate the Message and generate an appropriate response
+    Validator.validate(message) match {
+      case ValidationSuccess() =>
+        Responder.createSuccessResponse(message)
+      case ValidationFailure(description) =>
+        Responder.createFailureResponse(message, description)
+    }
   }
 }

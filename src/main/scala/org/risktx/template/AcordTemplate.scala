@@ -6,9 +6,9 @@ import java.util.GregorianCalendar
 import javax.xml.datatype.DatatypeFactory
 
 /**
-* Acord Ping Request message
+* ACORD Ping request message template
 **/
-object Requester {
+object AcordTemplate {
 
   // TODO: Check the scaladoc entry here!
   /**
@@ -21,7 +21,7 @@ object Requester {
   
     // Get the date of the request and format the date
     val cal = new GregorianCalendar()
-    cal.setTime(message.dateOf)
+    cal.setTime(message.dateOf.value.getTime)
 
     // Create timestamp for the message
     val xmlDateOf = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal).toString()    
@@ -47,6 +47,6 @@ object Requester {
           </ac:PingRq>
           
     // return the request
-    message.requestContent(pingRq.toString())
+    message.requestContent(pingRq.toString)
   }
 }

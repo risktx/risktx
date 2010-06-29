@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <service name="ams">
-  <parameter name="ServiceClass" locked="false">org.risktx.service.ws.AcordMsgSvc</parameter>
+  <parameter name="ServiceClass" locked="false">org.risktx.transport.AcordMessagingService</parameter>
   <parameter name="useOriginalwsdl">true</parameter>
   <parameter name="modifyUserWSDLPortAddress">true</parameter>
   <operation name="PingRq" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://www.ACORD.org/Standards/AcordMsgSvc/1.4.0">
     <actionMapping>http://www.ACORD.org/Standards/AcordMsgSvc/Ping#PingRq</actionMapping>
-    <messageReceiver class="org.risktx.service.ws.RiskTxMessageReceiver"/>
+    <messageReceiver class="org.risktx.transport.AcordMessageReceiver"/>
   </operation>
   <operation name="PostRq" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://www.ACORD.org/Standards/AcordMsgSvc/1.4.0">
     <actionMapping>http://www.ACORD.org/Standards/AcordMsgSvc/Inbox#PostRq</actionMapping>
-    <messageReceiver class="org.risktx.service.ws.RiskTxMessageReceiver"/>
+    <messageReceiver class="org.risktx.transport.AcordMessageReceiver"/>
   </operation>  
 </service>

@@ -1,4 +1,5 @@
-package org.risktx.service.ws
+package org.risktx.transport
+
 
 import org.apache.axiom.om.OMElement
 import org.apache.axis2.AxisFault
@@ -10,7 +11,7 @@ import net.liftweb.util.Log
 /**
 * Message handler
 **/
-class RiskTxMessageReceiver extends RPCMessageReceiver {
+class AcordMessageReceiver extends RPCMessageReceiver {
     //TODO: check these comments
     /**
     * Invoke the business logic defined in the Axis configuration and

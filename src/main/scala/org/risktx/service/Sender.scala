@@ -1,10 +1,10 @@
 package org.risktx.service
 
 import net.liftweb._
-import net.liftweb.util.Log
+import net.liftweb.common._
 
 import org.risktx.model.Message
-import org.risktx.template.Requester
+import org.risktx.template._
 
 import org.apache.axiom.om.impl.builder.StAXOMBuilder
 import org.apache.axiom.om.impl.llom.util.AXIOMUtil
@@ -26,34 +26,28 @@ import org.apache.axis2.wsdl.WSDLConstants
 /**
 * Implementation of the Acord Message Sender
 **/
-object Sender {
-  // TODO: Check these comments
-  /**
-  * Handles the sending of a message
-  *
-  * @param  message The request we have received or a blank message
-  **/
+object Sender extends Logger {
+
   def send(m: Message): Unit = {
 
-    // generate the request
-    Requester.createRq(m)
-    
     // Client.getEndpoint
     // set the endpoint URL for the recipient system
-    Log.info("setting endpoint as " + m.url)
-    val targetEPR = new EndpointReference(m.url)
+    info("setting endpoint as " + m.url.value)
+
+
+    val targetEPR = new EndpointReference(m.url.value)
 
     // Client.getAxisOptions
     // create the Axis client options
     val options  = new Options()
     options.setProperty(Constants.Configuration.ENABLE_SWA, Constants.VALUE_TRUE)
     options.setSoapVersionURI(SOAP11Constants.SOAP_ENVELOPE_NAMESPACE_URI)
-    options.setTimeOutInMilliSeconds(10000)
+    options.setTimeOutInMilliSeconds(10000)  // should be configured per trading party
     options.setTo(targetEPR)
     options.setAction("http://www.ACORD.org/Standards/AcordMsgSvc/Ping#PingRq")
 
     // Log the target endpoint
-    Log.info("sending to: " + m.url)
+    info("sending to: " + m.url)
     
     // Client.getAxisConfigurationContext    
     // get the Axis context for sending the message
@@ -61,7 +55,7 @@ object Sender {
         
     // Client.getAxisClient(m: Message)    
     //create the sender client
-    Log.info("creating sender client")
+    info("creating sender client")
     val sender = new ServiceClient(configContext, null)
     sender.setOptions(options)
 
@@ -74,16 +68,16 @@ object Sender {
     // Client.getMessageEnvelope(m: Message)
     val env = fac.getDefaultEnvelope()
 
-    val postRqElement = AXIOMUtil.stringToOM(m.requestContent)
+    val postRqElement = AXIOMUtil.stringToOM(m.requestContent.value)
     env.getBody().addChild(postRqElement)
     mc.setEnvelope(env)
 
     mepClient.addMessageContext(mc)
 
-    Log.info("sending message")
+    info("sending message")
     mepClient.execute(true)
     val response = mepClient.getMessageContext(WSDLConstants.MESSAGE_LABEL_IN_VALUE)
-
+    
     // Set response content
     m.responseContent(response.getEnvelope().getFirstElement().getFirstElement().toString())
   }

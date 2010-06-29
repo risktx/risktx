@@ -1,0 +1,9 @@
+target/
+lib_managed/
+src_managed/
+project/boot/
+.DS_Store
+risktx.iws
+risktx.iml
+risktx.ipr
+default.props

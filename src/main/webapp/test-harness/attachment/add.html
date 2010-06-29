@@ -1,0 +1,34 @@
+<lift:surround with="default" at="content">
+    <lift:AttachmentOps.add form="POST" multipart="true">
+        <div class="column span-24"><h3>Add Attachment</h3>
+
+            <div id="attachmentform">
+                <table>
+                    <tr>
+                        <td>Attachment ID</td>
+                        <td>
+                            <att:attachmentId/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Content Type</td>
+                        <td>
+                            <att:contentType/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Content</td>
+                        <td>
+                            <att:content/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2">
+                            <att:submit/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </lift:AttachmentOps.add>
+</lift:surround>

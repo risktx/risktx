@@ -1,0 +1,31 @@
+<lift:surround with="common" at="content">
+
+    <div class="container">
+
+        <div class="column span-7">&nbsp;</div>
+
+        <div class="column span-10 pageborder slightlypadded">
+            <div id="main">
+
+                <a href="/"><img src="/images/risktx-logo.gif"/></a>
+                <hr class="space"/>
+                <strong>
+                    <lift:msgs/>
+                </strong>
+                <lift:bind name="content"/>
+
+                <hr/>
+                <div id="login">
+                    <ul>
+                        <li><a href="/user_mgt/lost_password">Forgotten your username or password?</a></li>
+                        <li><a href="/user_mgt/sign_up">Register a new account</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="column span-7 last">&nbsp;</div>
+
+    </div>
+
+</lift:surround>

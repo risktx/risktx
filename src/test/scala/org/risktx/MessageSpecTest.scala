@@ -1,33 +1,23 @@
 package org.risktx
 
-import java.util.Date
+import java.util.Calendar
 import org.specs.runner._
-import net.liftweb.util._
-import org.risktx.model.Message
+import net.liftweb.common._
+import org.risktx.model._
 
 class MessageSpecTest extends BaseSpecification {
-
 	"Message" can {
-		val created = Message.create
+		val created = Message.createRecord
+      "be created" in {
+        created.dateOf(Calendar.getInstance).operation("PostRq")
+        created.save must_== created
+      }
 
-		"be created" in {
-		  created.dateOf(new Date()).operation("PostRq")
-			created.save() must beTrue
-		}
-	  
-		"be updated" in {
-			created.direction("out")
-			created.save() must beTrue
-		}
+      "be updated" in {
+        created.direction("out")
+        created.save must_== created
+      }
+    }
+  }
 
-		"be fetched" in {
-		  Message.find(created.id) match {
-		    case Full(fetched) => 
-		      (fetched == created) must beTrue
-		    case _ => // for match completeness, avoids compiler warnings
-		      true must beFalse
-		  }
-		}
-	}
-}
 

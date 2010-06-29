@@ -51,8 +51,7 @@
   </binding>
   <service name="AcordMsgService">
     <port name="AcordMsgSvcInbox" binding="ac:AcordMsgSvcInboxBinding">
-<!--  <wsdlsoap:address location="http://test.risktx.org/AcordMsgSvc/Inbox"/>  -->
-		<wsdlsoap:address location="http://localhost:8282/risktx/services/AcordMsgService"/>
+      <wsdlsoap:address location="http://risktx-server/risktx/services/ams"/>
     </port>
   </service>
 </definitions>

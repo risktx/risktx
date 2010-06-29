@@ -1,79 +1,43 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:lift="http://liftweb.net/">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    
-    <title>RiskTx || Test Harness</title>
-    <lift:CSS.blueprint />
-    <lift:CSS.fancyType />
-    <script id="jquery" src="/classpath/jquery.js" type="text/javascript"/>
-    <script id="json" src="/classpath/json.js" type="text/javascript"/>
-    <style>
-/* <![CDATA[ */
-.sidebar ul {
-	margin:0;
-	padding:0;
-	border-bottom:1px solid #ccc;
-}
-	 
-
-.sidebar ul li {
-	margin:0;
-	padding:0;
-	list-style:none;
-	border:1px solid #ccc;
-	border-bottom:none;
-}
-
-.sidebar ul li a {
-	display:block;
-	padding:3px;
-	text-indent:30px;
-	text-decoration:none;
-}
-
-.sidebar ul li span {
-	display:block;
-	padding:3px;
-	text-indent:30px;
-	text-decoration:none;
-}
-
-.sidebar ul li a:hover {
-	background-color: #eee;
-}
-
-
-  /* ]]> */
-  </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="column span-12 last" style="align: left">
-        <h1 class="alt"><a href="/"><img src="http://risktx.org/lib/tpl/risktx/images/risktx-logo.gif" /></a><img id="ajax-loader" style="display:none; margin-bottom: 0px; margin-left: 5px" src="/images/ajax-loader.gif"/></h1>
-      </div>
-
-      <hr/>
-
-      <div class="column span-6 colborder sidebar">
-        <hr class="space" />
-        <lift:Menu.builder />	
-        <div>
-          <lift:snippet type="msgs"/>
-          <hr class="space" />
+<lift:surround with="common" at="content">
+    <head>
+        <script type="text/javascript" src="/classpath/menu/superfish.js"></script>
+        <script type="text/javascript" src="/classpath/menu/superfish.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            jQuery(document).ready(function() {
+            jQuery('ul.sf-menu').superfish({ pathClass: 'current' });
+            })
+        </script>
+    </head>
+    <div class="container pageborder">
+        <div class="span-7">
+            <div class="slightlypadded">
+                <a href="/"><img src="/images/risktx-logo.gif"/></a>
+            </div>
         </div>
-      </div>
+        <div class="span-17 last" style="text-align: right;">
+            <div class="smalltext slightlypadded">
+                <lift:LoggedIn/>
+            </div>
+        </div>
+        <div class="smalltext">
+            <div>
+                <lift:Menu.builder expandAll="true" top:class="sf-menu sf-navbar" li_item:class="current"
+                                   li_path:class="current"/>
+            </div>
+        </div>
+        <div class="span-24 navbottom last">
+            <strong>
+                <lift:msgs/>
+            </strong>
+        </div>
 
-      <div class="column span-17 last">
-        <lift:bind name="content" />
-      </div>
+        <lift:bind name="content"/>
 
-      <hr />
-      <div class="column span-23 last" style="text-align: center">
-        <h4 class="alt"><!-- footer text --></h4>
-      </div>
-      
+        <div class="span-24 navbottom last">
+            <div class="slightlypadded smalltext" style="text-align: right;">
+                RiskTx version: SNAPSHOT-1.0 - <a href="http://www.risktx.org" target="_blank">www.risktx.org</a>
+            </div>
+        </div>
     </div>
-  </body>
-</html>
+
+</lift:surround>

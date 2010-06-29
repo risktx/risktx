@@ -1,4 +1,109 @@
 <lift:surround with="default" at="content">
-  <!-- <h2>Welcome to the RiskTx Test Harness</h2> -->
-</lift:surround>
+    <head>
+        <script type='text/javascript' src='http://www.google.com/jsapi'></script>
+        <script type='text/javascript'>
+            google.load('visualization', '1', {'packages':['annotatedtimeline']});
+            google.setOnLoadCallback(drawCharts);
 
+            function drawCharts() {
+            drawHourChart();
+            drawDayChart();
+            }
+
+            function drawHourChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Date');
+            data.addColumn('number', 'Messages processed');
+            data.addColumn('number', 'Messages failed');
+            data.addRows(7);
+            data.setValue(0, 0, new Date(2010, 0, 10, 0, 0, 0));
+            data.setValue(0, 1, 4);
+            data.setValue(0, 2, 0);
+            data.setValue(1, 0, new Date(2010, 0, 10, 1, 0, 0));
+            data.setValue(1, 1, 13);
+            data.setValue(1, 2, 0);
+            data.setValue(2, 0, new Date(2010, 0, 10, 2, 0, 0));
+            data.setValue(2, 1, 34);
+            data.setValue(2, 2, 0);
+            data.setValue(3, 0, new Date(2010, 0, 10, 3, 0, 0));
+            data.setValue(3, 1, 23);
+            data.setValue(3, 2, 0);
+            data.setValue(4, 0, new Date(2010, 0, 10, 4, 0, 0));
+            data.setValue(4, 1, 48);
+            data.setValue(4, 2, 0);
+            data.setValue(5, 0, new Date(2010, 0, 10, 5, 0, 0));
+            data.setValue(5, 1, 112);
+            data.setValue(5, 2, 0);
+            data.setValue(6, 0, new Date(2010, 0, 10, 6, 0, 0));
+            data.setValue(6, 1, 98);
+            data.setValue(6, 2, 0);
+
+            var hourTimeline = new google.visualization.AnnotatedTimeLine(
+            document.getElementById('hour_chart_div')
+            );
+            hourTimeline.draw(data, {'displayAnnotations': true, 'displayZoomButtons': false});
+            }
+
+            function drawDayChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Messages processed');
+            data.addColumn('number', 'Messages failed');
+            data.addRows(10);
+            data.setValue(0, 0, new Date(2010, 0 ,1));
+            data.setValue(0, 1, 190);
+            data.setValue(0, 2, 0);
+            data.setValue(1, 0, new Date(2010, 0 ,2));
+            data.setValue(1, 1, 112);
+            data.setValue(1, 2, 11);
+            data.setValue(2, 0, new Date(2010, 0 ,3));
+            data.setValue(2, 1, 345);
+            data.setValue(2, 2, 6);
+            data.setValue(3, 0, new Date(2010, 0 ,4));
+            data.setValue(3, 1, 289);
+            data.setValue(3, 2, 11);
+            data.setValue(4, 0, new Date(2010, 0 ,5));
+            data.setValue(4, 1, 304);
+            data.setValue(4, 2, 2);
+            data.setValue(5, 0, new Date(2010, 0 ,6));
+            data.setValue(5, 1, 266);
+            data.setValue(5, 2, 0);
+            data.setValue(6, 0, new Date(2010, 0 ,7));
+            data.setValue(6, 1, 121);
+            data.setValue(6, 2, 0);
+            data.setValue(7, 0, new Date(2010, 0 ,8));
+            data.setValue(7, 1, 232);
+            data.setValue(7, 2, 0);
+            data.setValue(8, 0, new Date(2010, 0 ,9));
+            data.setValue(8, 1, 123);
+            data.setValue(8, 2, 0);
+            data.setValue(9, 0, new Date(2010, 0 ,10));
+            data.setValue(9, 1, 146);
+            data.setValue(9, 2, 6);
+
+            var dayTimeline = new google.visualization.AnnotatedTimeLine(
+            document.getElementById('day_chart_div')
+            );
+            dayTimeline.draw(data, {'displayAnnotations': true});
+            }
+
+        </script>
+    </head>
+    <div class="span-24 slightlypadded last">
+        <h1>Home</h1>
+    </div>
+    <div class="span-24 navbottom last"></div>
+    <div class="span-24 slightlypadded last">
+        <strong>Message throughput by hour (last 24 hours):</strong>
+
+        <div id='hour_chart_div' style='width: 850px; height: 300px;'></div>
+        <br class="space"/>
+        <br class="space"/>
+
+        <strong>Message throughput by day (entire Message Log):</strong>
+
+        <div id='day_chart_div' style='width: 850px; height: 300px;'></div>
+        <br class="space"/>
+    </div>
+
+</lift:surround>

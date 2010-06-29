@@ -10,6 +10,10 @@ class BaseSpecification extends SpecificationWithJUnit {
   shareVariables()
 }
 
+
+/**
+*  Used to call Boot.init to provide access to the domain model
+**/
 object BaseSpecification {
   var initialised = false
   
