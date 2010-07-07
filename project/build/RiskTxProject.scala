@@ -2,9 +2,9 @@ import sbt._
 
 class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with stax.StaxPlugin {
 
-  val scalaSnapshots = ScalaToolsSnapshots
+  val scalaReleases = ScalaToolsReleases
 
-  val liftVersion = "2.0-SNAPSHOT"
+  val liftVersion = "2.0"
   val axisVersion = "1.4.1"
 
   lazy val staxApp = property[String]
