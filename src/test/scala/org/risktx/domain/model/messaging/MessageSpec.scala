@@ -23,9 +23,14 @@ class MessageSpec extends Specification {
       Message(null, messageDate, messagePayload) must throwA[IllegalArgumentException]
     }
 
-    "not be created with an null createdDate" in {
+    "not be created with a null createdDate" in {
       Message(messageRequestId, null, messagePayload) must throwA[IllegalArgumentException]
-    }    
+    }
+
+    "not be created with an empty or null payload" in {
+      Message(messageRequestId, messageDate, "") must throwA[IllegalArgumentException]
+      Message(messageRequestId, messageDate, null) must throwA[IllegalArgumentException]
+    }
 
   }
 
