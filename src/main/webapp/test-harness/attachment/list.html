@@ -1,0 +1,39 @@
+<lift:surround with="default" at="content">
+    <div class="span-24 slightlypadded last">
+        <h1>Test Harness: Attachments</h1>
+    </div>
+    <div class="span-24 navbottom last"></div>
+    <div class="span-24 slightlypadded last">
+        Page for management of uploaded attachments (e.g. .pdf, .doc, .xls files) for use in test scripts.
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Content Type</th>
+                    <th>Content</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <lift:AttachmentOps.list>
+                <tr>
+                <td><att:attachmentId /></td>
+                <td><att:contentType /></td>
+                <td><att:content /></td>
+                <td><a att:view_href="">View</a></td>
+                <td><a att:edit_href="">Edit</a></td>
+                <td><a att:delete_href="">Delete</a></td>
+                </tr>
+            </lift:AttachmentOps.list>
+            <tr><td>&nbsp;</td></tr>
+            <tr><td><a href="/test-harness/attachment/add">Create Attachment</a></td></tr>
+            </tbody>
+        </table>
+    </div>
+</lift:surround>
+
+
+
