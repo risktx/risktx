@@ -1,6 +1,6 @@
 import sbt._
 
-class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with stax.StaxPlugin {
+class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with stax.StaxPlugin with IdeaProject {
 
   val scalaReleases = ScalaToolsReleases
 

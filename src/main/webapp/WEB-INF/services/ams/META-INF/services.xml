@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <service name="ams">
-  <parameter name="ServiceClass" locked="false">org.risktx.transport.AcordMessagingService</parameter>
+  <parameter name="ServiceClass" locked="false">org.risktx.service.AcordMessagingService</parameter>
   <parameter name="useOriginalwsdl">true</parameter>
   <parameter name="modifyUserWSDLPortAddress">true</parameter>
   <operation name="PingRq" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://www.ACORD.org/Standards/AcordMsgSvc/1.4.0">

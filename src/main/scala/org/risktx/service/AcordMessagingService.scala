@@ -1,10 +1,12 @@
-package org.risktx.transport
+package org.risktx.service
 
 import org.apache.axiom.attachments.Attachments
 import org.apache.axiom.om.impl.llom.util.AXIOMUtil._
 import org.apache.axiom.om.OMElement
 import org.apache.axiom.soap.SOAPEnvelope
 import org.apache.axis2.context.MessageContext
+
+import org.risktx.domain.model.messaging._
 
 import net.liftweb.util.Log
 
@@ -24,20 +26,20 @@ class AcordMessagingService {
   * Handle Ping requests
   **/
   def PingRq():OMElement = {
-    asyncRq("PingRq")
+    handleMessage(InboundPingRq())
   }
 
   /**
   * Handle Post requests
   **/
   def PostRq():OMElement = {
-    asyncRq("PostRq")
+    handleMessage(InboundPostRq())
   }  
 
   /**
-  * Converts request SOAP object into a RiskTx Object
+  * Receives the Axis2 message and returns the response
   **/
-  def asyncRq(operation: String):OMElement = {
+  def handleMessage(instruction: Instruction):OMElement = {
     //get the context and SOAP envelope (contains the inbound AMS message)
     val context = MessageContext.getCurrentMessageContext()
     val requestContent = context.getEnvelope().getFirstElement().getFirstElement()
