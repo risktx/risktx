@@ -12,6 +12,7 @@ object Instruction {
   def apply(operation: String, direction: String) = {
 
     require(!(operation == null || operation.equals("")), "operation cannot be null or an empty String")
+    require(!(direction == null || direction.equals("")), "direction cannot be null or an empty String")
 
     new Instruction(operation, direction) {}
   }

@@ -44,8 +44,10 @@ class AcordMessagingService {
     val context = MessageContext.getCurrentMessageContext()
     val requestContent = context.getEnvelope().getFirstElement().getFirstElement()
 
-    //TODO: call an application level service to process the message and get a response
-    stringToOM("")
+    val message = Message("", new java.util.Date(), requestContent.toString())
+    val delivery = DeliveryService.createDelivery(message)
+
+    stringToOM(delivery.responsePayload)
   }
 
 }

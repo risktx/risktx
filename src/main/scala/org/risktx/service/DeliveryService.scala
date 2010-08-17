@@ -1,3 +1,11 @@
 package org.risktx.service
 
-object DeliveryService
+import org.risktx.domain.model.messaging._
+
+object DeliveryService {
+
+  def createDelivery(message: Message):Delivery = {
+    Delivery("", new java.util.Date, "", 1)
+  }
+
+}
