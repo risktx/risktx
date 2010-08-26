@@ -6,30 +6,27 @@ class MessageSpec extends Specification {
 
   "Message" can {
 
-    val messageRequestId = "ABCDE123etc."
+    val instruction = InboundPostRq()
     val messageDate = new java.util.Date()
     val messagePayload = "<xml-message>blah</xml-message>"
+    val sender = TradingParty("urn:something:sender", "Service Provider", "a url")
+    val receiver = TradingParty("urn:something:receiver", "Service Provider", "a url")
 
-    "be created from a requestId, createdDate and payload" in {
-      val m = Message(messageRequestId, messageDate, messagePayload)
+    "be created from an instruction, payload, sender and receiver" in {
+      val m = Message(
+        InboundPostRq(),
+        messagePayload,
+        TradingParty("urn:something:sender", "Service Provider", "a url"),
+        TradingParty("urn:something:receiver", "Service Provider", "a url")
+      )
       m must notBeNull
-      m.requestId must be_==(messageRequestId)
-      m.createdDate must be_==(messageDate)
+      m.instruction must be_==(instruction)
       m.payload must be_==(messagePayload)
     }
 
-    "not be created with an empty or null requestId" in {
-      Message("", messageDate, messagePayload) must throwA[IllegalArgumentException]
-      Message(null, messageDate, messagePayload) must throwA[IllegalArgumentException]
-    }
-
-    "not be created with a null createdDate" in {
-      Message(messageRequestId, null, messagePayload) must throwA[IllegalArgumentException]
-    }
-
     "not be created with an empty or null payload" in {
-      Message(messageRequestId, messageDate, "") must throwA[IllegalArgumentException]
-      Message(messageRequestId, messageDate, null) must throwA[IllegalArgumentException]
+      Message(instruction, "", sender, receiver) must throwA[IllegalArgumentException]
+      Message(instruction, null, sender, receiver) must throwA[IllegalArgumentException]
     }
 
   }

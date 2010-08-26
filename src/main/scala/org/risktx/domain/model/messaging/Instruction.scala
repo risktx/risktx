@@ -7,6 +7,8 @@ abstract case class Instruction protected(
 
 case class InboundPingRq() extends Instruction("PingRq", "inbound")
 case class InboundPostRq() extends Instruction("PostRq", "inbound")
+case class OutboundPingRq() extends Instruction("PingRq", "outbound")
+case class OutboundPostRq() extends Instruction("PostRq", "outbound")
 
 object Instruction {
   def apply(operation: String, direction: String) = {

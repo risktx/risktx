@@ -44,10 +44,16 @@ class AcordMessagingService {
     val context = MessageContext.getCurrentMessageContext()
     val requestContent = context.getEnvelope().getFirstElement().getFirstElement()
 
-    val message = Message("", new java.util.Date(), requestContent.toString())
-    val delivery = DeliveryService.createDelivery(message)
+    val message = Message(
+      instruction,
+      requestContent.toString(),
+      TradingParty("urn:something:sender", "Service Provider", "a url"),
+      TradingParty("urn:something:receiver", "Service Provider", "a url")
+    )
 
-    stringToOM(delivery.responsePayload)
+    DeliveryService.handleMessage(message)
+
+    stringToOM(message.delivery.responsePayload)
   }
 
 }

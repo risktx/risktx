@@ -5,7 +5,7 @@ import java.util.Date
 abstract case class Delivery private(
   val requestId: String,
   val createdDate: Date,
-  val responsePayload: String,
+  var responsePayload: String,
   val deliveryStatus: Int  //TODO: enum or case class?
 )
 
