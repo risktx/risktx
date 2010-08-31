@@ -14,7 +14,6 @@ object Delivery {
 
     require(!(requestId == null || requestId.equals("")), "requestId cannot be null or an empty String")
     require(createdDate != null, "createdDate cannot be null")
-    require(!(responsePayload == null || responsePayload.equals("")), "responsePayload cannot be null or an empty String")
 
     new Delivery(requestId, createdDate, responsePayload, deliveryStatus) {}
   }

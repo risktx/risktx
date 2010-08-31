@@ -6,5 +6,9 @@ project/boot/
 risktx.iws
 risktx.iml
 risktx.ipr
+RiskTx.iml
+RiskTx.ipr
+RiskTx.iws
+project/sbt_project_definition.iml
 default.props
 project/plugins/project/

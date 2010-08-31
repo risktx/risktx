@@ -1,6 +1,6 @@
 import sbt._
 
-class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with stax.StaxPlugin with IdeaProject {
+class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with BasicScalaIntegrationTesting with stax.StaxPlugin with IdeaProject {
 
   val scalaReleases = ScalaToolsReleases
 
@@ -30,6 +30,6 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with stax
     "org.apache.axis2" % "axis2-jaxws" % axisVersion % "compile->default",
     "org.mortbay.jetty" % "jetty" % "6.1.22" % "test->default",
     "junit" % "junit" % "4.5" % "test->default",
-    "org.scala-tools.testing" % "specs" % "1.6.2" % "test->default"
+    "org.scala-tools.testing" % "specs" % "1.6.2.1" % "test->default"
   ) ++ super.libraryDependencies
 }
