@@ -28,6 +28,7 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
     "org.apache.axis2" % "axis2-kernel" % axisVersion % "compile->default",
     "org.apache.axis2" % "axis2-adb" % axisVersion % "compile->default",
     "org.apache.axis2" % "axis2-jaxws" % axisVersion % "compile->default",
+    "org.freemarker" % "freemarker" % "2.3.16" % "compile->default",
     "org.mortbay.jetty" % "jetty" % "6.1.22" % "test->default",
     "junit" % "junit" % "4.5" % "test->default",
     "org.scala-tools.testing" % "specs" % "1.6.2.1" % "test->default"
