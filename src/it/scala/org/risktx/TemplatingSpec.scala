@@ -18,7 +18,7 @@ object TemplatingSpec extends Specification {
 
   "The templating system" can {
     "be used with a simple example" in {
-      val template = TemplateRepository.findTemplate("AMS", "1.4.1")
+      val template = TemplateRepository.findRequestTemplate("AMS", "1_4_1")
       
       val data: Map[String, String] = new HashMap
 		  data.put("value1", "test")
