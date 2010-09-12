@@ -63,7 +63,7 @@ object AcordMessagingService {
     val context = MessageContext.getCurrentMessageContext()
     val requestContent = context.getEnvelope().getFirstElement().getFirstElement()
 
-    val message = Me  ssage(
+    val message = Message(
       instruction,
       requestContent.toString(),
       TradingParty("urn:something:sender", "Service Provider", "a url"),
