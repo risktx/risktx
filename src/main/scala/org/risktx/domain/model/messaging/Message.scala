@@ -21,6 +21,10 @@ abstract case class Message private(
   def addRetry(retry: Delivery) = {
     deliveries = deliveries ::: List(retry)
   }
+
+  def addAttachment(attachment: Attachment) = {
+    attachments = attachments ::: List(attachment)
+  }
 }
 
 object Message {
