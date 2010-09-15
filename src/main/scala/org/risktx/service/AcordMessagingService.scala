@@ -4,6 +4,7 @@ import org.apache.axiom.attachments.Attachments
 import org.apache.axiom.om.impl.llom.util.AXIOMUtil._
 
 import org.risktx.domain.model.messaging._
+import org.risktx.repository.FileRepository
 
 import net.liftweb._
 import net.liftweb.common._
@@ -55,6 +56,13 @@ class AcordMessagingService {
 
 object AcordMessagingService {
 
+  private def saveAttachments(soapAttachments: org.apache.axiom.attachments.Attachments):Seq[Attachment] = {
+    val contentIds = soapAttachments.getAllContentIDs
+    val attachments = for(i <- (0 until contentIds.size).force)
+      yield FileRepository.createAttachment(soapAttachments.getDataHandler(contentIds(i)), contentIds(i))
+    attachments
+  }
+
   /**
   * Receives the Axis2 message and returns the response
   **/
@@ -72,6 +80,10 @@ object AcordMessagingService {
 
     val profile = TradingProfile()
 
+    val attachments = saveAttachments(context.getAttachmentMap)
+    attachments.foreach { attachment =>
+      message.addAttachment(attachment)
+    }
     DeliveryService.handleMessage(message, profile)
 
     stringToOM(message.delivery.responsePayload)

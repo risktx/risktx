@@ -12,7 +12,8 @@ object FileRepository {
 
     MongoDB.use(DefaultMongoIdentifier) ( db => {
       val fs = new GridFS(db)
-      val inputFile = fs.createFile(inputStream, handler.getContentType)
+      val inputFile = fs.createFile(inputStream)
+      inputFile.setContentType(handler.getContentType)
       inputFile.save
       Attachment(inputFile.getId.toString, contentId, handler.getContentType)
     })
