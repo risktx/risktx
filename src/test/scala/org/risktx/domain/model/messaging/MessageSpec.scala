@@ -9,15 +9,15 @@ class MessageSpec extends Specification {
     val instruction = InboundPostRq()
     val messageDate = new java.util.Date()
     val messagePayload = "<xml-message>blah</xml-message>"
-    val sender = TradingParty("urn:something:sender", "Service Provider", "a url")
-    val receiver = TradingParty("urn:something:receiver", "Service Provider", "a url")
+    val sender = TradingParty("urn:something:sender", "A Sender", "Service Provider", "a url")
+    val receiver = TradingParty("urn:something:receiver", "A Receiver", "Service Provider", "a url")
 
     "be created from an instruction, payload, sender and receiver" in {
       val m = Message(
         InboundPostRq(),
         messagePayload,
-        TradingParty("urn:something:sender", "Service Provider", "a url"),
-        TradingParty("urn:something:receiver", "Service Provider", "a url")
+        sender,
+        receiver
       )
       m must notBeNull
       m.instruction must be_==(instruction)

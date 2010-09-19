@@ -1,8 +1,5 @@
 package org.risktx.domain.model.messaging
 
-import java.io._
-import java.util.HashMap
-import java.util.Map
 import org.specs._
 import org.specs.runner.JUnit3
 import org.specs.runner.ConsoleRunner
@@ -17,14 +14,21 @@ object TemplatingSpecRunner extends ConsoleRunner(TemplatingSpec)
 object TemplatingSpec extends Specification {
 
   "The templating system" can {
-    "be used with a simple example" in {
-      val template = TemplateRepository.findRequestTemplate("AMS", "1_4_1")
-      
-      val data: Map[String, String] = new HashMap
-		  data.put("value1", "test")
+    "be used to create a PingRq message" in {
+      val template = TemplateRepository.findRequestTemplate("AMS", "1_4_1", "Ping")
+      val guid = "93dafe4a-ff70-4de7-94eb-8ca05fc28c19"
+      val data = TemplateService.emptyDataMap
 
-      val result = TemplateService.process(data, template)
-      result must equalIgnoreCase("Here's a test")
+      data.put("senderParty", "urn:something:sender")
+      data.put("senderPartyRole", "ServiceProvider")
+      data.put("receiverParty", "urn:something:sender")
+      data.put("receiverPartyRole", "ServiceProvider")
+      data.put("timeStamp", new java.util.Date)
+      data.put("requestId", guid)
+
+      val result = TemplateService.processAsXml(data, template)
+
+      guid must equalIgnoreCase((result \\ "PingId").text)
     }
 
   }

@@ -74,8 +74,8 @@ object AcordMessagingService {
     val message = Message(
       instruction,
       requestContent.toString(),
-      TradingParty("urn:something:sender", "Service Provider", "a url"),
-      TradingParty("urn:something:receiver", "Service Provider", "a url")
+      TradingParty("urn:something:sender", "A Sender", "Service Provider", "a url"),
+      TradingParty("urn:something:receiver", "A Receiver", "Service Provider", "a url")
     )
 
     val profile = TradingProfile()

@@ -1,18 +1,16 @@
 package org.risktx.repository
 
 import org.risktx.domain.model.messaging._
-//import net.liftweb.http.LiftRules
-// import net.liftweb.common._
 
 object TemplateRepository {
-
-  def findRequestTemplate(standard: String, version: String): Template = {
-    val template = "/request/" + standard + "_" + version + ".tmpl"
+  
+  def findRequestTemplate(standard: String, version: String, messageType: String): Template = {
+    val template = "/request/" + standard + "_" + version + "_" + messageType + ".tmpl"
     loadTemplate(template)
   }
 
-  def findResponseTemplate(standard: String, version: String): Template = {
-    val template = "/response/" + standard + "_" + version + ".tmpl"
+  def findResponseTemplate(standard: String, version: String, messageType: String): Template = {
+    val template = "/response/" + standard + "_" + version + "_" + messageType + ".tmpl"
     loadTemplate(template)
   }
 

@@ -7,6 +7,6 @@ abstract case class TradingProfile protected(
 
 object TradingProfile {
   def apply() = {
-    new TradingProfile("http://www.ACORD.org/Standards/AcordMsgSvc/Ping#PingRq", 1000) {}
+    new TradingProfile("http://www.ACORD.org/Standards/AcordMsgSvc/Ping#PingRq", 10000) {}
   }
 }

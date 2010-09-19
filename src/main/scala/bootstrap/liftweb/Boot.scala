@@ -17,6 +17,8 @@ import _root_.net.liftweb.widgets.menu.MenuWidget
  */
 class Boot extends Logger {
   def boot {
+
+    org.apache.log4j.BasicConfigurator.configure
     
     info("Booting RiskTx...")
 

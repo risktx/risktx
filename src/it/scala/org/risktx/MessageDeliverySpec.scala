@@ -21,9 +21,9 @@ object MessageDeliverySpec extends Specification {
     var profile: TradingProfile = null
     val instruction = OutboundPingRq()
     val messageDate = new java.util.Date()
+    val sender = TradingParty("urn:something:sender", "A Sender", "Service Provider", "a url")
+    val receiver = TradingParty("urn:something:receiver", "A Receiver", "Service Provider", "http://localhost:8080/services/ams")
     val messagePayload = <request />.toString
-    val sender = TradingParty("urn:something:sender", "Service Provider", "a url")
-    val receiver = TradingParty("urn:something:receiver", "Service Provider", "http://localhost:8080/services/ams")
 
     "create Trading Profiles" in {
       profile = TradingProfile()
