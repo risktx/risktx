@@ -14,34 +14,25 @@ import _root_.net.liftweb.widgets.menu.MenuWidget
 import _root_.net.liftweb.common._
 import Helpers._
 
-import se.scalablesolutions.akka.actor.{SupervisorFactory, Actor}
-import se.scalablesolutions.akka.config.ScalaConfig._
-import se.scalablesolutions.akka.util.Logging
-
-//import sample.lift.{PersistentSimpleService, SimpleService}
-import sample.lift.{SimpleService}
-
 /**
  * the Lift initialisation class
  */
 class Boot extends Logger {
   def boot {
-
     org.apache.log4j.BasicConfigurator.configure
-
-    info("Booting RiskTx...")
 
     // allow requests for Axis2 to pass straight through the LiftFilter 
     LiftRules.liftRequest.append({
       case r if (r.path.partPath match {
         case "services" :: _ => true
+        case "akka" :: _ => true
         case _ => false
       }) => false
     })
 
+    // Note: Akka is started separately using the listener defined in web.xml, this process happens before this is called
     configMongoDB
     configMailer
-    configAkka
 
     // package within which Lift looks for snippets
     LiftRules.addToPackages("org.risktx")
@@ -73,7 +64,7 @@ class Boot extends Logger {
     LiftRules.early.append(makeUtf8)
     LiftRules.useXhtmlMimeType = false
 
-    LiftRules.passNotFoundToChain = true
+//    LiftRules.passNotFoundToChain = true
 
   }
 
@@ -146,21 +137,4 @@ class Boot extends Logger {
       case _ => info("SMTP settings are missing, email notifications are disabled")
     }
   }
-
-  def configAkka() {
-    info("Configuring Akka")
-
-    val factory = SupervisorFactory(
-      SupervisorConfig(
-        RestartStrategy(OneForOne, 3, 100, List(classOf[Exception])),
-        Supervise(new SimpleService,LifeCycle(Permanent)) ::Nil))
-
-     //Supervise(new PersistentSimpleService,LifeCycle(Permanent)) ::
-
-    info("Starting Akka ")
-    factory.newInstance.start
-
-    info("Akka Started")
-  }
-
 }

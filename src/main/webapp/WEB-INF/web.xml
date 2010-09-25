@@ -2,6 +2,9 @@
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
         "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
+    <listener>
+        <listener-class>se.scalablesolutions.akka.kernel.Kernel</listener-class>
+    </listener>
 
     <filter>
         <filter-name>LiftFilter</filter-name>
@@ -21,16 +24,24 @@
         <servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+
     <servlet>
-        <servlet-name>AkkaServlet</servlet-name>
-        <servlet-class>se.scalablesolutions.akka.rest.AkkaServlet</servlet-class>
+        <servlet-name>akka</servlet-name>
+        <!-- Previous REST only Akka Servlet -->
+        <!-- <servlet-class>se.scalablesolutions.akka.rest.AkkaServlet</servlet-class> -->
+        <servlet-class>se.scalablesolutions.akka.comet.AkkaServlet</servlet-class>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>akka</servlet-name>
+        <url-pattern>/akka/*</url-pattern>
+    </servlet-mapping>
+
+
     <servlet-mapping>
         <servlet-name>AxisServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AkkaServlet</servlet-name>
-        <url-pattern>/*</url-pattern>
-    </servlet-mapping>
+
+
 </web-app>

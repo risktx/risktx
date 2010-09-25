@@ -18,7 +18,7 @@ class User extends MegaProtoUser[User] {
 /**
  * User companion object with Helper methods
  **/
-object User extends User with MetaMegaProtoUser[User] {
+object User extends User with MetaMegaProtoUser[User] with Logger {
   // DB table name
   override def dbTableName = "users"
 
@@ -48,11 +48,11 @@ object User extends User with MetaMegaProtoUser[User] {
         val msgXml = passwordResetMailBody(user, resetLink)
         Mailer.sendMail(From(emailFrom), Subject(passwordResetEmailSubject),
           To(user.email), xmlToMailBodyType(msgXml))
-        Log.info("Email sent..." + emailFrom)
-        Log.info("Email sent..." + passwordResetEmailSubject)
-        Log.info("Email sent..." + user.email)
-        Log.info("Email sent..." + msgXml)
-        Log.info("Email sent..." + bccEmail.toList)
+        info("Email sent..." + emailFrom)
+        info("Email sent..." + passwordResetEmailSubject)
+        info("Email sent..." + user.email)
+        info("Email sent..." + msgXml)
+        info("Email sent..." + bccEmail.toList)
         S.notice(S.??("password.reset.email.sent"))
 
       case Full(user) =>
