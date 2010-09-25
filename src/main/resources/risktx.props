@@ -1,0 +1,11 @@
+mongo.host=127.0.0.1
+mongo.port=27017
+mongo.db=risktx
+mongo.password=risktx
+#smtp.host=127.0.0.1
+#smtp.host=smtp.gmail.com
+#smtp.enabletls=true
+#smtp.port=25
+#smtp.user=risktx
+#smtp.password=risktx
+user.registration.email.validation=false

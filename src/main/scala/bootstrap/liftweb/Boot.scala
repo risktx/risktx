@@ -3,6 +3,7 @@ package bootstrap.liftweb
 import javax.mail.{Authenticator, PasswordAuthentication}
 
 import _root_.net.liftweb.http._
+import _root_.net.liftweb.http.auth._
 import _root_.net.liftweb.http.provider.{HTTPRequest}
 import _root_.net.liftweb.sitemap._
 import _root_.net.liftweb.sitemap.Loc._
@@ -10,7 +11,15 @@ import _root_.net.liftweb.common._
 import _root_.net.liftweb.util._
 import _root_.net.liftweb.mongodb._
 import _root_.net.liftweb.widgets.menu.MenuWidget
+import _root_.net.liftweb.common._
+import Helpers._
 
+import se.scalablesolutions.akka.actor.{SupervisorFactory, Actor}
+import se.scalablesolutions.akka.config.ScalaConfig._
+import se.scalablesolutions.akka.util.Logging
+
+//import sample.lift.{PersistentSimpleService, SimpleService}
+import sample.lift.{SimpleService}
 
 /**
  * the Lift initialisation class
@@ -19,7 +28,7 @@ class Boot extends Logger {
   def boot {
 
     org.apache.log4j.BasicConfigurator.configure
-    
+
     info("Booting RiskTx...")
 
     // allow requests for Axis2 to pass straight through the LiftFilter 
@@ -32,6 +41,7 @@ class Boot extends Logger {
 
     configMongoDB
     configMailer
+    configAkka
 
     // package within which Lift looks for snippets
     LiftRules.addToPackages("org.risktx")
@@ -42,7 +52,7 @@ class Boot extends Logger {
     MenuWidget.init()
 
     // Map request to the primary key for Item to use our view
-    LiftRules.rewrite.append {
+    LiftRules.statelessRewrite.append {
       case RewriteRequest(
       ParsePath(List("test-harness", "attachment", action, id), _, _, _), _, _) =>
         RewriteResponse("test-harness" :: "attachment" :: action :: Nil, Map("id" -> id))
@@ -62,6 +72,9 @@ class Boot extends Logger {
 
     LiftRules.early.append(makeUtf8)
     LiftRules.useXhtmlMimeType = false
+
+    LiftRules.passNotFoundToChain = true
+
   }
 
   /**
@@ -75,7 +88,8 @@ class Boot extends Logger {
    * Configure MongoDB connection from properties file
    */
   def configMongoDB() {
-    
+    info("Configuring MongoDB")
+
     var mongoAddress = MongoAddress(MongoHost(), "risktx")
 
     (Props.get("mongo.host"), Props.getInt("mongo.port"), Props.get("mongo.db")) match {
@@ -96,13 +110,14 @@ class Boot extends Logger {
         MongoDB.defineDb(DefaultMongoIdentifier, mongoAddress)
       }
     }
-    
+
   }
 
   /**
    * Configure email functionality from properties file
    */
   def configMailer() {
+    info("Configuring Mailer")
 
     Props.get("smtp.host") match {
       case Full(host) => {
@@ -132,5 +147,20 @@ class Boot extends Logger {
     }
   }
 
+  def configAkka() {
+    info("Configuring Akka")
+
+    val factory = SupervisorFactory(
+      SupervisorConfig(
+        RestartStrategy(OneForOne, 3, 100, List(classOf[Exception])),
+        Supervise(new SimpleService,LifeCycle(Permanent)) ::Nil))
+
+     //Supervise(new PersistentSimpleService,LifeCycle(Permanent)) ::
+
+    info("Starting Akka ")
+    factory.newInstance.start
+
+    info("Akka Started")
+  }
 
 }
