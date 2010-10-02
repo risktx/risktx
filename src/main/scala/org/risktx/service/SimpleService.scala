@@ -2,11 +2,12 @@ package org.risktx.service
 
 import se.scalablesolutions.akka.actor.{Transactor, Actor}
 import se.scalablesolutions.akka.config.ScalaConfig._
-import se.scalablesolutions.akka.stm.TransactionalState
+//import se.scalablesolutions.akka.stm.TransactionalState
+import se.scalablesolutions.akka.stm.TransactionalMap
 
 import java.lang.Integer
 import javax.ws.rs.{GET, Path, Produces}
-import java.nio.ByteBuffer
+//import java.nio.ByteBuffer
 
 /**
  * Try service out by invoking (multiple times):
@@ -20,7 +21,8 @@ class SimpleService extends Transactor {
   case object Tick
   private val KEY = "COUNTER"
   private var hasStartedTicking = false
-  private lazy val storage = TransactionalState.newMap[String, Integer]
+//  private lazy val storage = TransactionalState.newMap[String, Integer]
+  private lazy val storage = new TransactionalMap [String, Integer]
 
   @GET
   @Produces(Array("text/html"))

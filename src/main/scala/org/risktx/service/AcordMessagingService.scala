@@ -58,7 +58,7 @@ object AcordMessagingService {
 
   private def saveAttachments(soapAttachments: org.apache.axiom.attachments.Attachments):Seq[Attachment] = {
     val contentIds = soapAttachments.getAllContentIDs
-    val attachments = for(i <- (0 until contentIds.size).force)
+    val attachments = for(i <- (0 until contentIds.size).force) // force needs replacing
       yield FileRepository.createAttachment(soapAttachments.getDataHandler(contentIds(i)), contentIds(i))
     attachments
   }
@@ -80,10 +80,13 @@ object AcordMessagingService {
 
     val profile = TradingProfile()
 
+//    val attachments = Nil  // Temporary fix
+
     val attachments = saveAttachments(context.getAttachmentMap)
     attachments.foreach { attachment =>
       message.addAttachment(attachment)
     }
+
     DeliveryService.handleMessage(message, profile)
 
     stringToOM(message.delivery.responsePayload)

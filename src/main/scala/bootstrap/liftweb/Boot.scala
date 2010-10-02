@@ -64,7 +64,7 @@ class Boot extends Logger {
     LiftRules.early.append(makeUtf8)
     LiftRules.useXhtmlMimeType = false
 
-//    LiftRules.passNotFoundToChain = true
+    LiftRules.passNotFoundToChain = true
 
   }
 

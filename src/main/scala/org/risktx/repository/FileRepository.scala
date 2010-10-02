@@ -2,6 +2,7 @@ package org.risktx.repository
 
 import javax.activation.DataHandler
 import net.liftweb.mongodb._
+import net.liftweb.mongodb.record._
 import com.mongodb.gridfs._
 import org.risktx.domain.model.messaging._
 
