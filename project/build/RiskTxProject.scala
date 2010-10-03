@@ -15,6 +15,7 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
   val jboss = "jBoss" at "http://repository.jboss.org/maven2"
   val m2 = "m2" at "http://download.java.net/maven/2"
   val jbossnexus = "Jboss Nexus" at "http://repository.jboss.org/nexus/content/groups/public/"  
+  val mavenmirror = "mavenmirrot" at "http://mirrors.ibiblio.org/pub/mirrors/maven2/"
 
 //  val sunjdmk = "sunjdmk" at "http://wp5.e-taxonomy.eu/cdmlib/mavenrepo"
 //  val databinder = "DataBinder" at "http://databinder.net/repo"
@@ -61,6 +62,7 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
     "org.apache.axis2" % "axis2-kernel" % axisVersion % "compile->default",
     "org.apache.axis2" % "axis2-adb" % axisVersion % "compile->default",
     "org.apache.axis2" % "axis2-jaxws" % axisVersion % "compile->default",
+    "org.apache.ws.commons.axiom" % "axiom-api" % "1.2.4" % "compile->default", 
     "org.freemarker" % "freemarker" % "2.3.16" % "compile->default",
     "se.scalablesolutions.akka" %% "akka-core"  % akkaVersion % "compile->default",
     "se.scalablesolutions.akka" %% "akka-kernel" % akkaVersion % "compile->default",

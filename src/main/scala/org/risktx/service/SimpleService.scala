@@ -5,6 +5,9 @@ import se.scalablesolutions.akka.config.ScalaConfig._
 //import se.scalablesolutions.akka.stm.TransactionalState
 import se.scalablesolutions.akka.stm.TransactionalMap
 
+// Added for security authentification
+import se.scalablesolutions.akka.security.{BasicAuthenticationActor,BasicCredentials, UserInfo}
+
 import java.lang.Integer
 import javax.ws.rs.{GET, Path, Produces}
 //import java.nio.ByteBuffer
@@ -39,4 +42,21 @@ class SimpleService extends Transactor {
       reply(<h1>Tick: 0</h1>)
     }
   }
+}
+
+class BasicAuthenticationService extends BasicAuthenticationActor {
+
+  //Change this to whatever you want
+  override def realm = "guest"
+
+  //Dummy method that allows you to log on with whatever username
+  def verify(odc: Option[BasicCredentials]): Option[UserInfo] = odc match {
+//    case Some(dc) => userInfo(dc.username)
+    case _ => userInfo("guest")
+//    case _ => None
+  }
+
+  //Dummy method that allows you to log on with whatever username with the password "bar"
+  def userInfo(username: String): Option[UserInfo] = Some(UserInfo(username, "bar", "ninja" :: "chef" :: Nil))
+
 }
