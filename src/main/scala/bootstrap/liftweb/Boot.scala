@@ -48,13 +48,13 @@ class Boot extends Logger {
         RewriteResponse("test-harness" :: "attachment" :: action :: Nil, Map("id" -> id))
     }
 
-    /*
+  /*
      * Show the spinny image when an Ajax call starts
      */
     LiftRules.ajaxStart =
             Full(() => LiftRules.jsArtifacts.show("ajax-loader").cmd)
 
-    /*
+  /*
      * Make the spinny image go away when it ends
      */
     LiftRules.ajaxEnd =
@@ -63,7 +63,20 @@ class Boot extends Logger {
     LiftRules.early.append(makeUtf8)
     LiftRules.useXhtmlMimeType = false
 
-//    LiftRules.passNotFoundToChain = true
+    LiftRules.httpAuthProtectedResource.prepend {
+//      case (Req("secureticker" :: Nil, _, _)) => Full(AuthRole("admin"))
+      case (Req("akka" :: "secureticker" :: "chef" :: Nil, _, _)) => Full(AuthRole("chef"))
+    }
+
+    LiftRules.authentication = HttpBasicAuthentication("lift") {
+      case ("guest", "guest", req) => {
+        info("You are now authenticated !")
+        userRoles(AuthRole("chef"))
+        true
+      }
+    }
+
+    LiftRules.passNotFoundToChain = true
 
   }
 
