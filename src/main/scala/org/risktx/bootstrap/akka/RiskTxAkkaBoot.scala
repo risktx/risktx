@@ -1,6 +1,6 @@
 package org.risktx.bootstrap.akka
 
-import _root_.net.liftweb.common._
+import net.liftweb.common._
 import se.scalablesolutions.akka.actor.{SupervisorFactory, Actor}
 import se.scalablesolutions.akka.config.ScalaConfig._
 import se.scalablesolutions.akka.util.Logging

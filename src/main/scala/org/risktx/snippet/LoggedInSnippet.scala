@@ -1,7 +1,7 @@
 package org.risktx.snippet
 
-import _root_.scala.xml.{NodeSeq}
-import _root_.net.liftweb.common.{Full}
+import scala.xml.{NodeSeq}
+import net.liftweb.common.{Full}
 
 import org.risktx.domain.model.administration.User
 

@@ -1,12 +1,12 @@
 package org.risktx.domain.model.administration
 
-import _root_.net.liftweb.http.{S, SessionVar}
-import _root_.net.liftweb.mapper._
-import _root_.net.liftweb.common._
-import _root_.net.liftweb.util._
-import _root_.net.liftweb.util.Mailer._
-import _root_.net.liftweb.sitemap._
-import _root_.net.liftweb.sitemap.Loc._
+import net.liftweb.http.{S, SessionVar}
+import net.liftweb.mapper._
+import net.liftweb.common._
+import net.liftweb.util._
+import net.liftweb.util.Mailer._
+import net.liftweb.sitemap._
+import net.liftweb.sitemap.Loc._
 
 /**
  * User entity based on Lift's MegaProtoUser

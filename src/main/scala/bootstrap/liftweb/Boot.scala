@@ -1,17 +1,16 @@
 package bootstrap.liftweb
 
 import javax.mail.{Authenticator, PasswordAuthentication}
-
-import _root_.net.liftweb.http._
-import _root_.net.liftweb.http.auth._
-import _root_.net.liftweb.http.provider.{HTTPRequest}
-import _root_.net.liftweb.sitemap._
-import _root_.net.liftweb.sitemap.Loc._
-import _root_.net.liftweb.common._
-import _root_.net.liftweb.util._
-import _root_.net.liftweb.mongodb._
-import _root_.net.liftweb.widgets.menu.MenuWidget
-import _root_.net.liftweb.common._
+import net.liftweb.http._
+import net.liftweb.http.auth._
+import net.liftweb.http.provider.{HTTPRequest}
+import net.liftweb.sitemap._
+import net.liftweb.sitemap.Loc._
+import net.liftweb.common._
+import net.liftweb.util._
+import net.liftweb.mongodb._
+import net.liftweb.widgets.menu.MenuWidget
+import net.liftweb.common._
 import Helpers._
 
 /**

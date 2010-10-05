@@ -5,7 +5,7 @@
     <listener>
         <listener-class>se.scalablesolutions.akka.kernel.Kernel</listener-class>
     </listener>
-
+<!--
     <filter>
         <filter-name>LiftFilter</filter-name>
         <display-name>Lift Filter</display-name>
@@ -24,7 +24,7 @@
         <servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
+    -->
     <servlet>
         <servlet-name>akka</servlet-name>
         <!-- Previous REST only Akka Servlet -->
@@ -37,11 +37,11 @@
         <url-pattern>/akka/*</url-pattern>
     </servlet-mapping>
 
-
+       <!--
     <servlet-mapping>
         <servlet-name>AxisServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
-
+           -->
 
 </web-app>

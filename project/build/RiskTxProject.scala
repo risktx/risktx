@@ -16,6 +16,9 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
   val m2 = "m2" at "http://download.java.net/maven/2"
   val jbossnexus = "Jboss Nexus" at "http://repository.jboss.org/nexus/content/groups/public/"
   val mavenmirror = "mavenmirrot" at "http://mirrors.ibiblio.org/pub/mirrors/maven2/"
+  val scalatoolsrepo = "scalatoolsrepo" at "http://scala-tools.org/repo-releases/"
+  val specsRepo = "specs-repo" at "http://specs.googlecode.com/svn/maven2"
+
 
 //  val sunjdmk = "sunjdmk" at "http://wp5.e-taxonomy.eu/cdmlib/mavenrepo"
 //  val databinder = "DataBinder" at "http://databinder.net/repo"
@@ -24,11 +27,9 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
   // ------------------------------------------------------------
 
   // project versions
-  val liftVersion = "2.1"
+  val liftVersion = "2.0"
   val axisVersion = "1.4.1"
-//  val akkaVersion = "0.7.1"
-  //val akkaScalaVersion = "_2.7.7"   // Hack to get round Akka modules including Scala version details
-  val akkaVersion = "0.10"
+  val akkaVersion = "0.7.1"
 
 
   lazy val staxApp = property[String]
@@ -52,13 +53,13 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
   // override def scanDirectories = Nil
 
   override def libraryDependencies = Set(
-    "net.liftweb" %% "lift-webkit" % liftVersion % "compile->default",
-    "net.liftweb" %% "lift-mapper" % liftVersion % "compile->default",
-    "net.liftweb" %% "lift-mongodb" % liftVersion % "compile->default",
-    "net.liftweb" %% "lift-mongodb-record" % liftVersion % "compile->default",
-    "net.liftweb" %% "lift-testkit" % liftVersion % "compile->default",
-    "net.liftweb" %% "lift-widgets" % liftVersion % "compile->default",
-    "net.liftweb" %% "lift-util" % liftVersion % "compile",
+    "net.liftweb" % "lift-webkit" % liftVersion % "compile->default",
+    "net.liftweb" % "lift-mapper" % liftVersion % "compile->default",
+    "net.liftweb" % "lift-mongodb" % liftVersion % "compile->default",
+    "net.liftweb" % "lift-mongodb-record" % liftVersion % "compile->default",
+    "net.liftweb" % "lift-testkit" % liftVersion % "compile->default",
+    "net.liftweb" % "lift-widgets" % liftVersion % "compile->default",
+    "net.liftweb" % "lift-util" % liftVersion % "compile",
     "org.apache.axis2" % "axis2-kernel" % axisVersion % "compile->default",
     "org.apache.axis2" % "axis2-adb" % axisVersion % "compile->default",
     "org.apache.axis2" % "axis2-jaxws" % axisVersion % "compile->default",
@@ -69,7 +70,7 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
     "se.scalablesolutions.akka" %% "akka-persistence-mongo" % akkaVersion % "compile->default",
     "org.mortbay.jetty" % "jetty" % "6.1.22" % "test->default",
     "junit" % "junit" % "4.5" % "test->default",
-    "org.scala-tools.testing" %% "specs" % "1.6.5" % "test->default",
+    "org.scala-tools.testing" % "specs_2.7.7" % "1.6.1" % "test->default",
     "com.h2database" % "h2" % "1.2.138"
   ) ++ super.libraryDependencies
 
