@@ -24,7 +24,7 @@ class Boot extends Logger {
     LiftRules.liftRequest.append({
       case r if (r.path.partPath match {
         case "services" :: _ => true
-        case "akka" :: _ => true
+        case "rest" :: _ => true
         case _ => false
       }) => false
     })
@@ -37,6 +37,19 @@ class Boot extends Logger {
     LiftRules.addToPackages("org.risktx")
 
     // TODO: build SiteMap using new DSL
+   // build initial SiteMap
+
+
+   val entries = Menu(Loc("Home", List("index"), "Home"),
+                  Menu(Loc("about", List("about"), "About"))) ::
+                Menu(Loc("Messaging", List("error"), "Messaging"),
+                  Menu(Loc("PingMessage", List("pingmessage"), "Ping Message"))) ::
+                Menu(Loc("rest", List("rest"), "REST"),
+                  Menu(Loc("publictick", List("rest/secureticker/public"), "Public Ticker")),
+                  Menu(Loc("privatetick", List("rest/secureticker/chef"), "Private Ticker"))) :: Nil
+
+    // Set SiteMap
+    LiftRules.setSiteMap(SiteMap(entries : _*))
 
     // initialise MenuWidget (from lift-widgets)
     MenuWidget.init()
@@ -64,16 +77,16 @@ class Boot extends Logger {
     LiftRules.useXhtmlMimeType = false
 
     LiftRules.httpAuthProtectedResource.prepend {
-//      case (Req("secureticker" :: Nil, _, _)) => Full(AuthRole("admin"))
       case (Req("akka" :: "secureticker" :: "chef" :: Nil, _, _)) => Full(AuthRole("chef"))
     }
 
     LiftRules.authentication = HttpBasicAuthentication("lift") {
       case ("guest", "guest", req) => {
         info("You are now authenticated !")
-        userRoles(AuthRole("chef"))
+        userRoles(AuthRole("guest"))
         true
       }
+      case _ => false //do nothing
     }
 
     LiftRules.passNotFoundToChain = true

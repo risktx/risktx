@@ -1,0 +1,48 @@
+<lift:surround with="default" at="content">
+    <div class="span-24 slightlypadded last">
+        <h1>Send a PingRq Message</h1>
+    </div>
+    <div class="span-24 navbottom last"></div>
+    <div class="span-24 slightlypadded last">
+  <lift:pingMessageSnippet.send form="post">
+    <table>
+      <tr>
+        <td>AMS Endpoint URL: </td>
+        <td><pingMessage:receiverUrl pingMessage:size="50" /></td>
+      </tr>
+      <tr>
+        <td>Sender trading party: </td>
+        <td><pingMessage:senderPartyId /></td>
+      </tr>
+      <tr>
+        <td>Receiver trading party: </td>
+        <td><pingMessage:receiverPartyId /></td>
+      </tr>
+      <tr>
+        <td>Sender trading party role: </td>
+        <td><pingMessage:senderPartyRole /></td>
+      </tr>
+      <tr>
+        <td>Receiver trading party role: </td>
+        <td><pingMessage:receiverPartyRole /></td>
+      </tr>
+    </table>
+    <div><pingMessage:submit /></div>
+    <br />
+    <hr />
+
+    <h3>AMS Message Sent</h3>
+    <pre>
+      <pingMessage:requestContent />
+    </pre>
+    <br />
+    <hr />
+
+    <h3>AMS Message Received</h3>
+    <pre>
+      <pingMessage:responseContent />
+    </pre>
+
+  </lift:pingMessageSnippet.send>
+    </div>
+</lift:surround>

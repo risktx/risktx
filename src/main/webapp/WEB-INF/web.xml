@@ -33,7 +33,7 @@
 
     <servlet-mapping>
         <servlet-name>akka</servlet-name>
-        <url-pattern>/akka/*</url-pattern>
+        <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
