@@ -27,21 +27,17 @@
 
     <servlet>
         <servlet-name>akka</servlet-name>
-        <!-- Previous REST only Akka Servlet -->
-        <!-- <servlet-class>se.scalablesolutions.akka.rest.AkkaServlet</servlet-class> -->
         <servlet-class>se.scalablesolutions.akka.comet.AkkaServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>akka</servlet-name>
-        <url-pattern>/akka/*</url-pattern>
+        <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
-
 
     <servlet-mapping>
         <servlet-name>AxisServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
-
-
 </web-app>

@@ -1,17 +1,16 @@
 package bootstrap.liftweb
 
 import javax.mail.{Authenticator, PasswordAuthentication}
-
-import _root_.net.liftweb.http._
-import _root_.net.liftweb.http.auth._
-import _root_.net.liftweb.http.provider.{HTTPRequest}
-import _root_.net.liftweb.sitemap._
-import _root_.net.liftweb.sitemap.Loc._
-import _root_.net.liftweb.common._
-import _root_.net.liftweb.util._
-import _root_.net.liftweb.mongodb._
-import _root_.net.liftweb.widgets.menu.MenuWidget
-import _root_.net.liftweb.common._
+import net.liftweb.http._
+import net.liftweb.http.auth._
+import net.liftweb.http.provider.{HTTPRequest}
+import net.liftweb.sitemap._
+import net.liftweb.sitemap.Loc._
+import net.liftweb.common._
+import net.liftweb.util._
+import net.liftweb.mongodb._
+import net.liftweb.widgets.menu.MenuWidget
+import net.liftweb.common._
 import Helpers._
 
 /**
@@ -25,7 +24,7 @@ class Boot extends Logger {
     LiftRules.liftRequest.append({
       case r if (r.path.partPath match {
         case "services" :: _ => true
-        case "akka" :: _ => true
+        case "rest" :: _ => true
         case _ => false
       }) => false
     })
@@ -38,6 +37,19 @@ class Boot extends Logger {
     LiftRules.addToPackages("org.risktx")
 
     // TODO: build SiteMap using new DSL
+   // build initial SiteMap
+
+
+   val entries = Menu(Loc("Home", List("index"), "Home"),
+                  Menu(Loc("about", List("about"), "About"))) ::
+                Menu(Loc("Messaging", List("error"), "Messaging"),
+                  Menu(Loc("PingMessage", List("pingmessage"), "Ping Message"))) ::
+                Menu(Loc("rest", List("rest"), "REST"),
+                  Menu(Loc("publictick", List("rest/secureticker/public"), "Public Ticker")),
+                  Menu(Loc("privatetick", List("rest/secureticker/chef"), "Private Ticker"))) :: Nil
+
+    // Set SiteMap
+    LiftRules.setSiteMap(SiteMap(entries : _*))
 
     // initialise MenuWidget (from lift-widgets)
     MenuWidget.init()
@@ -49,13 +61,13 @@ class Boot extends Logger {
         RewriteResponse("test-harness" :: "attachment" :: action :: Nil, Map("id" -> id))
     }
 
-    /*
+  /*
      * Show the spinny image when an Ajax call starts
      */
     LiftRules.ajaxStart =
             Full(() => LiftRules.jsArtifacts.show("ajax-loader").cmd)
 
-    /*
+  /*
      * Make the spinny image go away when it ends
      */
     LiftRules.ajaxEnd =
@@ -63,6 +75,19 @@ class Boot extends Logger {
 
     LiftRules.early.append(makeUtf8)
     LiftRules.useXhtmlMimeType = false
+
+    LiftRules.httpAuthProtectedResource.prepend {
+      case (Req("akka" :: "secureticker" :: "chef" :: Nil, _, _)) => Full(AuthRole("chef"))
+    }
+
+    LiftRules.authentication = HttpBasicAuthentication("lift") {
+      case ("guest", "guest", req) => {
+        info("You are now authenticated !")
+        userRoles(AuthRole("guest"))
+        true
+      }
+      case _ => false //do nothing
+    }
 
     LiftRules.passNotFoundToChain = true
 
