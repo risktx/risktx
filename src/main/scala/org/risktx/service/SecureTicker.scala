@@ -23,6 +23,8 @@ class SecureTickActor extends Actor with Logging {
 //  makeTransactionRequired   // Removed worked in 0.7.1 
 
   case object Tick
+  val thisRef = actorOf(this)
+
   private val KEY = "COUNTER"
   private var hasStartedTicking = false
   private lazy val storage = TransactionalMap[String, Integer] //TransactionalState.newMap[String, Integer]
@@ -53,7 +55,7 @@ class SecureTickActor extends Actor with Logging {
   @DenyAll
   def paranoiaTick = tick
 
-  def tick = (this !! Tick) match {
+  def tick = (thisRef !! Tick) match {
     case (Some(counter)) => (<success>Tick:
       {counter}
     </success>)
@@ -64,11 +66,11 @@ class SecureTickActor extends Actor with Logging {
     case Tick => if (hasStartedTicking) {
       val counter = storage.get(KEY).get.intValue
       storage.put(KEY, counter + 1)
-      reply(new Integer(counter + 1))
+      self.reply(new Integer(counter + 1))
     } else {
       storage.put(KEY, 0)
       hasStartedTicking = true
-      reply(new Integer(0))
+      self.reply(new Integer(0))
     }
   }
 }
