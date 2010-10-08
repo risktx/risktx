@@ -6,23 +6,21 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
 
   // ------------------------------------------------------------
   // repositories
-  val akka = "Akka Repository" at "http://scalablesolutions.se/akka/repository"
-  val guice = "Guice Repository" at "http://guiceyfruit.googlecode.com/svn/repo/releases/"
-  val dispatch = "Dispatch Repository" at "http://databinder.net/repo/"
-  val lag = "www.lag.net Repository" at "http://www.lag.net/repo/"
-  val configgy = "Configgy" at "http://www.lag.net/repo"
-  val codehaus = "Codehaus" at "http://repository.codehaus.org"
-  val jboss = "jBoss" at "http://repository.jboss.org/maven2"
+  val mavenmirror = "mavenmirror" at "http://mirrors.ibiblio.org/pub/mirrors/maven2/"
   val m2 = "m2" at "http://download.java.net/maven/2"
-  val jbossnexus = "Jboss Nexus" at "http://repository.jboss.org/nexus/content/groups/public/"  
-  val mavenmirror = "mavenmirrot" at "http://mirrors.ibiblio.org/pub/mirrors/maven2/"
-  val scalatoolsrepo = "scalatoolsrepo" at "http://scala-tools.org/repo-releases/"
-  val specsRepo = "specs-repo" at "http://specs.googlecode.com/svn/maven2"
+  val jboss = "jBoss" at "http://repository.jboss.org/maven2"
+  val jbossnexus = "Jboss Nexus" at "http://repository.jboss.org/nexus/content/groups/public/"
+  val akka = "Akka Repository" at "http://scalablesolutions.se/akka/repository"
+  val toolsrepo = "toolsrepo" at "http://scala-tools.org/repo-releases/"
+  val configgy = "Configgy" at "http://www.lag.net/repo"
+  val guice = "Guice Repository" at "http://guiceyfruit.googlecode.com/svn/repo/releases/"
+  val codehaus = "Codehaus" at "http://repository.codehaus.org"
 
 //  val sunjdmk = "sunjdmk" at "http://wp5.e-taxonomy.eu/cdmlib/mavenrepo"
 //  val databinder = "DataBinder" at "http://databinder.net/repo"
-//  val codehaus_snapshots = "Codehaus Snapshots" at "http://snapshots.repository.codehaus.org"
+//  val specsRepo = "specs-repo" at "http://specs.googlecode.com/svn/maven2"
 //  val google = "google" at "http://google-maven-repository.googlecode.com/svn/repository"
+//  val codehaus_snapshots = "Codehaus Snapshots" at "http://snapshots.repository.codehaus.org"
 
   // project versions
   val liftVersion = "2.1"
@@ -61,7 +59,6 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
     "org.apache.axis2" % "axis2-adb" % axisVersion % "compile->default",
     "org.apache.axis2" % "axis2-jaxws" % axisVersion % "compile->default",
     "org.apache.ws.commons.axiom" % "axiom-api" % "1.2.4" % "compile->default", 
-
     "org.freemarker" % "freemarker" % "2.3.16" % "compile->default",
     "se.scalablesolutions.akka" %% "akka-core"  % akkaVersion % "compile->default",
     "se.scalablesolutions.akka" %% "akka-kernel" % akkaVersion % "compile->default",

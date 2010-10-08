@@ -58,7 +58,7 @@ object AcordMessagingService {
 
   private def saveAttachments(soapAttachments: org.apache.axiom.attachments.Attachments):Seq[Attachment] = {
     val contentIds = soapAttachments.getAllContentIDs
-    val attachments = for(i <- (0 until contentIds.size).force) // force needs replacing
+    val attachments = for(i <- (0 until contentIds.size)) //   .force    force needs replacing
       yield FileRepository.createAttachment(soapAttachments.getDataHandler(contentIds(i)), contentIds(i))
     attachments
   }

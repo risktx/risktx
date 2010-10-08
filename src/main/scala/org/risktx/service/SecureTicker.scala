@@ -1,11 +1,14 @@
 package org.risktx.service
 
-import java.lang.Integer
-import se.scalablesolutions.akka.actor.Actor
+import se.scalablesolutions.akka.util._
+import se.scalablesolutions.akka.actor._
+import se.scalablesolutions.akka.actor.Actor._
 import se.scalablesolutions.akka.util.Logging
-import se.scalablesolutions.akka.stm.TransactionalState
+import se.scalablesolutions.akka.stm.TransactionalMap
+
 import javax.annotation.security.{RolesAllowed, DenyAll, PermitAll}
 import javax.ws.rs.{GET, Path, Produces}
+import java.lang.Integer
 
 /**
 * a REST Actor with class level paranoia settings to deny all access
@@ -17,12 +20,12 @@ import javax.ws.rs.{GET, Path, Produces}
 */
 @Path("/secureticker")
 class SecureTickActor extends Actor with Logging {
-  makeTransactionRequired
+//  makeTransactionRequired   // Removed worked in 0.7.1 
 
   case object Tick
   private val KEY = "COUNTER"
   private var hasStartedTicking = false
-  private lazy val storage = TransactionalState.newMap[String, Integer]
+  private lazy val storage = TransactionalMap[String, Integer] //TransactionalState.newMap[String, Integer]
 
   /**
      * allow access for any user to "/secureticker/public"
