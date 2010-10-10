@@ -5,7 +5,11 @@
          version="2.4">
 
     <display-name>RiskTx</display-name>
-<!--
+
+    <listener>
+        <listener-class>se.scalablesolutions.akka.servlet.Initializer</listener-class>
+    </listener>
+
     <filter>
         <filter-name>LiftFilter</filter-name>
         <display-name>Lift Filter</display-name>
@@ -34,10 +38,10 @@
         <servlet-name>AkkaServlet</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
-<!--
+
     <servlet-mapping>
         <servlet-name>AxisServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
-    -->
+
 </web-app>
