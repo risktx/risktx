@@ -63,8 +63,6 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
     "se.scalablesolutions.akka" %% "akka-core"  % akkaVersion % "compile->default",
     "se.scalablesolutions.akka" %% "akka-http" % akkaVersion % "compile->default",
     "se.scalablesolutions.akka" %% "akka-persistence-mongo" % akkaVersion % "compile->default",
-    "org.springframework" % "spring-context" % "3.0.0.RELEASE" % "compile->default",
-    "org.springframework" % "spring-aop" % "3.0.0.RELEASE" % "compile->default",
     "org.mortbay.jetty" % "jetty" % "6.1.22" % "test->default",
     "junit" % "junit" % "4.5" % "test->default",
     "org.scala-tools.testing" %% "specs" % "1.6.5" % "test->default",
