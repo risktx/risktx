@@ -1,3 +1,15 @@
 see RiskTx.org 
 
 Master now switched to Scala 2.8.0, Lift 2.1 and Akka 0.10
+
+
+Install Java SDK
+Install git
+Install sbt from http://code.google.com/p/simple-build-tool/
+Install mongodb from http://www.mongodb.org/
+Fork this repository and clone it
+run:
+ sbt update
+ sbt jetty
+
+Open a browser and go to http://localhost:8080/
