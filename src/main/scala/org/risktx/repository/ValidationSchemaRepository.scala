@@ -17,9 +17,8 @@ object ValidationSchemaRepository {
     }
   }
 
-  private def loadSchema(schema: String): ValidationSchema = {
-    val stream = this.getClass.getResourceAsStream(schema)
-    val content = io.Source.fromInputStream(stream).getLines.mkString
+  private def loadSchema(schemaFile: String): ValidationSchema = {
+    val content = io.Source.fromFile(schemaFile).mkString
 
     ValidationSchema(content)
   }

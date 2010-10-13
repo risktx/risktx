@@ -74,34 +74,29 @@ object AcordMessagingService {
     val message = Message(
       instruction,
       requestContent.toString(),
-      TradingParty("urn:something:sender", "A Sender", "Service Provider", "a url"),
-      TradingParty("urn:something:receiver", "A Receiver", "Service Provider", "a url")
+      TradingProfile()
     )
-
-    val profile = TradingProfile()
-
-//    val attachments = Nil  // Temporary fix
 
     val attachments = saveAttachments(context.getAttachmentMap)
     attachments.foreach { attachment =>
       message.addAttachment(attachment)
     }
 
-    DeliveryService.handleMessage(message, profile)
+    DeliveryService.handleMessage(message)
 
     stringToOM(message.delivery.responsePayload)
   }
 
-  def sendMessage(message: Message, profile: TradingProfile) = {
-    val targetEPR = new EndpointReference(message.receiver.endpointUrl)
+  def sendMessage(message: Message) = {
+    val targetEPR = new EndpointReference(message.profile.receiver.endpointUrl)
 
     // create the Axis client options
     val options  = new Options()
     options.setProperty(Constants.Configuration.ENABLE_SWA, Constants.VALUE_TRUE)
     options.setSoapVersionURI(SOAP11Constants.SOAP_ENVELOPE_NAMESPACE_URI)
-    options.setTimeOutInMilliSeconds(profile.outboundTimeoutMillis)
+    options.setTimeOutInMilliSeconds(message.profile.outboundTimeoutMillis)
     options.setTo(targetEPR)
-    options.setAction(profile.outboundSoapAction)
+    options.setAction(message.profile.outboundSoapAction)
 
     // get the Axis context for sending the message
     val configContext = ConfigurationContextFactory.createDefaultConfigurationContext

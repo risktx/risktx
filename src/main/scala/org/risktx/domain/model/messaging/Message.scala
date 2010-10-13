@@ -5,8 +5,7 @@ import java.util.Date
 abstract case class Message private(
   val instruction: Instruction,
   val payload: String,
-  val sender: TradingParty,
-  val receiver: TradingParty,
+  val profile: TradingProfile,
   var attachments: List[Attachment],
   var deliveries: List[Delivery]) {
 
@@ -28,13 +27,12 @@ abstract case class Message private(
 }
 
 object Message {
-  def apply(instruction: Instruction, payload: String, sender: TradingParty, receiver: TradingParty) = {
+  def apply(instruction: Instruction, payload: String, profile: TradingProfile) = {
     
     require(!(instruction == null), "instruction cannot be null")
     require(!(payload == null || payload.equals("")), "payload cannot be null or an empty String")
-    require(!(sender == null), "sender cannot be null")
-    require(!(receiver == null), "receiver cannot be null")
+    require(!(profile == null), "trading profile cannot be null")
 
-    new Message(instruction, payload, sender, receiver, Nil, Nil) {}
+    new Message(instruction, payload, profile, Nil, Nil) {}
   }
 }
