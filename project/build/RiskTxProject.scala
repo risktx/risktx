@@ -12,10 +12,10 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
   val jbossnexus = "Jboss Nexus" at "http://repository.jboss.org/nexus/content/groups/public/"
   val akka = "Akka Repository" at "http://scalablesolutions.se/akka/repository"
   val toolsrepo = "toolsrepo" at "http://scala-tools.org/repo-releases/"
-  val configgy = "Configgy" at "http://www.lag.net/repo"
   val guice = "Guice Repository" at "http://guiceyfruit.googlecode.com/svn/repo/releases/"
   val codehaus = "Codehaus" at "http://repository.codehaus.org"
 
+//  val configgy = "Configgy" at "http://www.lag.net/repo"
 //  val sunjdmk = "sunjdmk" at "http://wp5.e-taxonomy.eu/cdmlib/mavenrepo"
 //  val databinder = "DataBinder" at "http://databinder.net/repo"
 //  val specsRepo = "specs-repo" at "http://specs.googlecode.com/svn/maven2"
@@ -63,6 +63,7 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
     "se.scalablesolutions.akka" %% "akka-core"  % akkaVersion % "compile->default",
     "se.scalablesolutions.akka" %% "akka-http" % akkaVersion % "compile->default",
     "se.scalablesolutions.akka" %% "akka-persistence-mongo" % akkaVersion % "compile->default",
+    "net.lag" % "configgy" % "2.0.0" % "compile->default",
     "org.mortbay.jetty" % "jetty" % "6.1.22" % "test->default",
     "junit" % "junit" % "4.5" % "test->default",
     "org.scala-tools.testing" %% "specs" % "1.6.5" % "test->default",

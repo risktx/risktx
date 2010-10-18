@@ -13,6 +13,10 @@ import net.liftweb.widgets.menu.MenuWidget
 import net.liftweb.common._
 import Helpers._
 
+import net.lag.configgy.{Configgy, Config, ParseException}
+
+class ConfigurationException(message: String) extends RuntimeException(message)
+
 /**
  * the Lift initialisation class
  */
@@ -103,27 +107,46 @@ class Boot extends Logger {
   /**
    * Configure MongoDB connection from properties file
    */
-  def configMongoDB() {
+  def configMongoDB {
     info("Configuring MongoDB")
 
-    var mongoAddress = MongoAddress(MongoHost(), "risktx")
+    if (getClass.getClassLoader.getResource("akka.conf") == null) {
+      throw new ConfigurationException("Can't load 'akka.conf' config file from application classpath")
+    } else {
+      try {
+        Configgy.configureFromResource("akka.conf", getClass.getClassLoader)
+        info("Config loaded from the application classpath.")
+      } catch {
+        case e: ParseException => throw new ConfigurationException(
+          "Can't load 'akka.conf' config file from application classpath," +
+          "\n\tdue to: " + e.toString)
+      }
 
-    (Props.get("mongo.host"), Props.getInt("mongo.port"), Props.get("mongo.db")) match {
-      case (Full(host), Full(port), Full(db)) => {
-        mongoAddress = MongoAddress(MongoHost(host, port), db)
+      // read hostname and port:
+      val akkaConfig = Configgy.config
 
-        (Props.get("mongo.user"), Props.get("mongo.password")) match {
-          case (Full(user), Full(password)) => {
-            MongoDB.defineDbAuth(DefaultMongoIdentifier, mongoAddress, user, password)
-          }
-          case _ => {
-            MongoDB.defineDb(DefaultMongoIdentifier, mongoAddress)
+      var mongoAddress = MongoAddress(MongoHost(), "risktx")
+
+      (akkaConfig.getString("akka.storage.mongodb.hostname"), akkaConfig.getInt("akka.storage.mongodb.port"), akkaConfig.getString("akka.storage.mongodb.dbname")) match {
+        case (Some(host), Some(port), Some(db)) => {
+          info("Defining MongoDB Connection As Host: " + host + " Port: " + port +" DB Name: "+ db)
+          mongoAddress = MongoAddress(MongoHost(host, port), db)
+
+          (akkaConfig.getString("akka.storage.mongodb.user"), akkaConfig.getString("akka.storage.mongodb.password")) match {
+            case (Some(user), Some(password)) => {
+              info("Connecting to MongoDB as User: " + user)
+              MongoDB.defineDbAuth(DefaultMongoIdentifier, mongoAddress, user, password)
+            }
+            case _ => {
+              info("User credentials un-matched, using defaults")
+              MongoDB.defineDb(DefaultMongoIdentifier, mongoAddress)
+            }
           }
         }
-      }
-      case _ => {
-        info("MongoDB settings are missing... default is localhost:27017:risktx")
-        MongoDB.defineDb(DefaultMongoIdentifier, mongoAddress)
+        case _ => {
+          info("MongoDB settings are missing... default is localhost:27017:risktx")
+          MongoDB.defineDb(DefaultMongoIdentifier, mongoAddress)
+        }
       }
     }
 
