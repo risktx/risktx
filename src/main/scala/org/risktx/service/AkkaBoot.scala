@@ -5,7 +5,7 @@ import javax.ws.rs.{GET, Path, Produces}
 import se.scalablesolutions.akka.actor.{ActorRegistry, SupervisorFactory, Actor, Transactor}
 import se.scalablesolutions.akka.actor.Actor._
 import se.scalablesolutions.akka.actor._
-import se.scalablesolutions.akka.config.ScalaConfig._
+import se.scalablesolutions.akka.config.Supervision._
 import se.scalablesolutions.akka.security.{BasicAuthenticationActor,BasicCredentials, UserInfo}
 import se.scalablesolutions.akka.stm.TransactionalMap
 import java.lang.Integer
@@ -14,9 +14,9 @@ import javax.annotation.security.{RolesAllowed, DenyAll, PermitAll}
 class Boot {
   val factory = SupervisorFactory(
     SupervisorConfig(
-      RestartStrategy(OneForOne, 3, 100, List(classOf[Exception])),
-      Supervise(Actor.actorOf[SecureTickActor], LifeCycle(Permanent)) ::
-      Supervise(Actor.actorOf[BasicAuthenticationService], LifeCycle(Permanent)) :: Nil))
+      OneForOneStrategy(List(classOf[Exception]), 3, 100),
+      Supervise(actorOf[SecureTickActor], Permanent) ::
+      Supervise(actorOf[BasicAuthenticationService], Permanent) :: Nil))
 
   factory.newInstance.start
 }

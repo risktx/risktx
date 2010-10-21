@@ -14,18 +14,13 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
   val toolsrepo = "toolsrepo" at "http://scala-tools.org/repo-releases/"
   val guice = "Guice Repository" at "http://guiceyfruit.googlecode.com/svn/repo/releases/"
   val codehaus = "Codehaus" at "http://repository.codehaus.org"
-
-//  val configgy = "Configgy" at "http://www.lag.net/repo"
-//  val sunjdmk = "sunjdmk" at "http://wp5.e-taxonomy.eu/cdmlib/mavenrepo"
-//  val databinder = "DataBinder" at "http://databinder.net/repo"
-//  val specsRepo = "specs-repo" at "http://specs.googlecode.com/svn/maven2"
-//  val google = "google" at "http://google-maven-repository.googlecode.com/svn/repository"
-//  val codehaus_snapshots = "Codehaus Snapshots" at "http://snapshots.repository.codehaus.org"
+  val CasbahRepo = "Casbah Repo" at "http://repo.bumnetworks.com/releases"
+  val CasbahSnapshotRepo = "Casbah Snapshots" at "http://repo.bumnetworks.com/snapshots"
 
   // project versions
   val liftVersion = "2.1"
   val axisVersion = "1.4.1"
-  val akkaVersion = "0.10"
+  val akkaVersion = "1.0-M1"
 
   lazy val staxApp = property[String]
   lazy val staxUser = property[String]
@@ -42,10 +37,6 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
 
   // uncomment the following if you want to use the snapshot repo
   //val scalatoolsSnapshot = ScalaToolsSnapshots
-
-  // If you're using JRebel for Lift development, uncomment
-  // this line
-  // override def scanDirectories = Nil
    
   override def libraryDependencies = Set(
     "net.liftweb" %% "lift-webkit" % liftVersion % "compile->default",
@@ -60,7 +51,7 @@ class RiskTxProject(info: ProjectInfo) extends DefaultWebProject(info) with Basi
     "org.apache.axis2" % "axis2-jaxws" % axisVersion % "compile->default",
     "org.apache.ws.commons.axiom" % "axiom-api" % "1.2.4" % "compile->default", 
     "org.freemarker" % "freemarker" % "2.3.16" % "compile->default",
-    "se.scalablesolutions.akka" %% "akka-core"  % akkaVersion % "compile->default",
+    "se.scalablesolutions.akka" %% "akka-actor"  % akkaVersion % "compile->default",
     "se.scalablesolutions.akka" %% "akka-http" % akkaVersion % "compile->default",
     "se.scalablesolutions.akka" %% "akka-persistence-mongo" % akkaVersion % "compile->default",
     "net.lag" % "configgy" % "2.0.0" % "compile->default",
